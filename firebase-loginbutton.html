@@ -95,7 +95,8 @@
             value: true
           },
           user: {
-            type: String
+            type: Object,
+            value: {}
           },
           token: {
             type: String
@@ -104,6 +105,11 @@
       }
 
       _isLoggedComputed(user) {
+        if (!!user===true) {
+          document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.user}}));
+        } else {
+          document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {user: this.user}}));
+        }
         return !!user;
       }  
       _textshow(show, user) {
