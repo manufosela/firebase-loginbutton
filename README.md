@@ -1,6 +1,6 @@
-# \<firebase-loginbutton\>
+# firebase-loginbutton
 
-
+Firebase Login Button
 
 ## Install the Polymer-CLI
 
