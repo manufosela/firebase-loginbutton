@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>firebase-loginbutton demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../firebase-loginbutton.html">
+
+    <link rel="import" href="../../polymerfire/firebase-auth.html">
+    <link rel="import" href="../../polymerfire/firebase-app.html">
+    <link rel="import" href="../../polymerfire/firebase.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic firebase-loginbutton demo</h3>
+      <demo-snippet>
+        <template>
+          <firebase-loginbutton 
+            domain="coleccion-peliculas.firebaseapp.com"
+            apikey="AIzaSyBaehmgaklz_vaqsBVZhvBm0fsD7PF8PHQ" 
+            provider="google"
+            show="name"
+            hidephoto="false">
+          </firebase-loginbutton>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <script>
+      document.addEventListener('firebase-signin', signin, false);
+      document.addEventListener('firebase-signout', signout, false);
+      function signin(payload) {
+        console.log("SIGN IN", payload)
+      }
+      function signout(payload) {
+        console.log("SIGN OUT", payload)
+      }
+    </script>
+  </body>
+</html>

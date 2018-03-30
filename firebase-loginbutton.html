@@ -1,0 +1,147 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="firebase-loginbutton">
+  <template>
+    <style>
+      :host, :root{
+        display: block;
+        --app-primary-color: #FD8913;
+        --app-secondary-color: black;
+      }
+      .singin {
+        background: var(--app-primary-color);
+        color: var(--app-secondary-color);
+        border: 0;
+        border-radius: 3px;
+        text-transform: uppercase;
+        padding: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      #logged { display:flex; }
+      svg { border:0; border-radius: 50%; padding:5px; }
+      img { margin:0 5px; }
+      .logout-btn {
+        background: var(--app-primary-color);
+        border: 0;
+        border-radius: 50%;     
+        padding: 0;
+        margin: 0 10px;
+        cursor:pointer;
+      }
+      .singintext { border:0; height:30px; line-height:2.5; cursor:pointer; }
+    </style>
+    
+    <firebase-app auth-domain="[[domain]]"
+      database-url="https://[[domain]]/"
+      api-key="[[apikey]]">
+    </firebase-app>
+    <firebase-auth id="auth" user="{{user}}" provider="[[provider]]" on-error="handleError"></firebase-auth>
+    
+    <div class="loginlayer">
+      <div class="user-details-container"></div>
+      <template is="dom-if" if="[[!isLogged]]">
+        <button class="singin" on-click="toggleSignIn" title="sign-in">Sign in</button>
+      </template>
+      <template is="dom-if" if="[[isLogged]]">
+        <div id="logged" title="sign-out">
+          <button on-click="toggleSignIn" class="logout-btn">
+            <svg id="logout-icon" width="23" height="21">
+              <path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/>              
+            </svg>
+          </button>
+          <img hidden$="[[hidePhoto]]" src="{{user.photoURL}}" width="40" height="40">
+          <div class="singintext">{{singintext}}</div>
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    class FirebaseLoginbutton extends Polymer.Element {
+      static get is() { return 'firebase-loginbutton'; }
+
+      static get properties() {
+        return {
+          isLogged: {
+            type: Boolean,
+            value: false,
+            computed: '_isLoggedComputed(user)'
+          },
+          provider: {
+            type: String,
+            value: "google"
+          },
+          domain: {
+            type: String
+          },
+          apikey: {
+            type: String
+          },
+          show:{
+            type: String
+          },
+          singintext:{
+            type: String,
+            value: '',
+            computed: '_textshow(show, user)'
+          },
+          hidephoto:{
+            type: Boolean,
+            value: true
+          },
+          user: {
+            type: String
+          },
+          token: {
+            type: String
+          }
+        };
+      }
+
+      _isLoggedComputed(user) {
+        return !!user;
+      }  
+      _textshow(show, user) {
+        if (user) {
+          return (show==='name')?user.displayName:user.email;
+        }
+      }
+
+      toggleSignIn() {
+        if (!firebase.auth().currentUser) {
+          var provider = new firebase.auth.GoogleAuthProvider();
+          provider.addScope('https://www.googleapis.com/auth/plus.login');
+          firebase.auth().signInWithPopup(provider).then(function(result) {
+            this.token = result.credential.accessToken;
+            this.user = result.user;
+            //LANZAR EVENTO SIGNIN
+            document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.user}}));
+          }.bind(this)).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            var email = error.email;
+            var credential = error.credential;
+            if (errorCode === 'auth/account-exists-with-different-credential') {
+              alert('You have already signed up with a different auth provider for that email.');
+            } else {
+              console.error(error);
+            }
+          });
+        } else {
+          firebase.auth().signOut();
+          // LANZAR EVENTO SIGNOUT
+          document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {user: this.user}}));
+        }
+      }
+
+      handleError(err) {
+        console.log(err);
+      }
+
+    }
+
+    window.customElements.define(FirebaseLoginbutton.is, FirebaseLoginbutton);
+  </script>
+</dom-module>
