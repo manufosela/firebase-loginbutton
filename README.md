@@ -4,8 +4,7 @@ Polymer web component configurable to login in firebase
 
 ## Demo
 
-[firebase-loginbutton codepen demo](http://codepen.io/manufosela/pen/XXX)
-[firebase-loginbutton jsfiddle demo](https://jsfiddle.net/manufosela/YYYY/)
+[firebase-loginbutton jsfiddle demo](https://jsfiddle.net/manufosela/3z9srovn/14/)
 
 <!---
 ```
