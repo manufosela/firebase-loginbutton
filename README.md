@@ -1,21 +1,37 @@
-# firebase-loginbutton
+# firebase-loginbutton [![ ](https://)](https://)
 
-Firebase Login Button
+Polymer web component configurable to login in firebase
 
-## Install the Polymer-CLI
+## Demo
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your element locally.
+[firebase-loginbutton codepen demo](http://codepen.io/manufosela/pen/XXX)
+[firebase-loginbutton jsfiddle demo](https://jsfiddle.net/manufosela/YYYY/)
 
-## Viewing Your Element
-
+<!---
 ```
-$ polymer serve
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="firabse-loginbutton.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+```html
+          <firebase-loginbutton 
+            domain="coleccion-peliculas.firebaseapp.com"
+            apikey="AIzaSyBaehmgaklz_vaqsBVZhvBm0fsD7PF8PHQ" 
+            provider="google"
+            show="name"
+            showphoto>
+          </firebase-loginbutton>
 ```
 
-## Running Tests
+## Author
 
-```
-$ polymer test
-```
+* **Mánu Fosela** - *Javascript Composer* - [manufosela](https://github.com/manufosela)
 
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
