@@ -11,7 +11,7 @@ Polymer web component configurable to login in firebase
 <custom-element-demo>
   <template>
     <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="firabse-loginbutton.html">
+    <link rel="import" href="firebase-loginbutton.html">
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
