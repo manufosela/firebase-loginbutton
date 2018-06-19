@@ -26,6 +26,33 @@ Polymer web component configurable to login in firebase
             showphoto>
           </firebase-loginbutton>
 ```
+## Use
+
+```shell
+> npm install bower -g
+> mkdir myproyect && cd myproyect
+> bower install --save https://github.com/manufosela/firebase-loginbutton.git
+```
+
+Edit your HTML file and put the link to webcomponent into HEAD tags
+
+```html
+<head>
+   ...
+   <link rel="import" href="./bower_components/firebase-loginbutton/firebase-loginbutton.html">
+   ...
+</head>
+```
+
+Put the component into the BODY and fill the configure attributes with firebase configuration:
+
+```html
+<body>
+  ...
+  <firebase-loginbutton [atributos]></firebase-loginbutton>
+  ...
+</body>
+```
 
 ## Author
 
