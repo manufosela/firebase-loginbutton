@@ -1,4 +1,4 @@
-import { LitElement, html, css } from '/node_modules/lit-element/lit-element.js';
+import { LitElement, html, css } from 'lit-element';
 import 'firebase/firebase-app';
 import 'firebase/firebase-auth';
 
