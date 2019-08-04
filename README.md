@@ -1,16 +1,19 @@
-# firebase-loginbutton [![ ](https://)](https://)
+# firebase-loginbutton
 
-Polymer web component configurable to login in firebase
+Lit-Element web component description
 
 ## Demo
 
-[firebase-loginbutton jsfiddle demo](https://jsfiddle.net/manufosela/3z9srovn/14/)
+```
+<h2>Basic firebase-loginbutton Demo</h2>
+<h3>Demo</h3>
+<firebase-loginbutton></firebase-loginbutton>
 
+```
 <!---
 ```
 <custom-element-demo>
   <template>
-    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="firebase-loginbutton.html">
     <next-code-block></next-code-block>
   </template>
@@ -18,46 +21,55 @@ Polymer web component configurable to login in firebase
 ```
 -->
 ```html
-          <firebase-loginbutton 
-            domain="coleccion-peliculas.firebaseapp.com"
-            apikey="AIzaSyBaehmgaklz_vaqsBVZhvBm0fsD7PF8PHQ" 
-            provider="google"
-            show="name"
-            showphoto>
-          </firebase-loginbutton>
+<firebase-loginbutton></firebase-loginbutton>
+
 ```
-## Use
+#Use
 
-```shell
-> npm install bower -g
-> mkdir myproyect && cd myproyect
-> bower install --save https://github.com/manufosela/firebase-loginbutton.git
+Es necesario capturar los eventos para saber cuando esta logado o deslogado:
+
+  document.addEventListener('firebase-signin', this.signin.bind(this), false);
+  document.addEventListener('firebase-signout', this.signout.bind(this), false);
+
+No olvidar desuscribirse de los evnetos si el componente se destruye:
+
+  document.removeEventListener('firebase-signin', this.signin.bind(this), false);
+  document.removeEventListener('firebase-signout', this.signout.bind(this), false);
+
+
+
+
+
+## Install the Polymer-CLI
+
+First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) and npm (packaged with [Node.js](https://nodejs.org)) installed. Run `npm install` to install your element's dependencies, then run `polymer serve` to serve your element locally.
+
+## Viewing Your Element
+
 ```
-
-Edit your HTML file and put the link to webcomponent into HEAD tags
-
-```html
-<head>
-   ...
-   <link rel="import" href="./bower_components/firebase-loginbutton/firebase-loginbutton.html">
-   ...
-</head>
-```
-
-Put the component into the BODY and fill the configure attributes with firebase configuration:
-
-```html
-<body>
-  ...
-  <firebase-loginbutton [atributos]></firebase-loginbutton>
-  ...
-</body>
+$ polymer serve
 ```
 
-## Author
+## Running Tests
 
-* **Mánu Fosela** - *Javascript Composer* - [manufosela](https://github.com/manufosela)
+```
+$ polymer test
+```
+
+## Build
+```
+$ npm run build
+```
+
+Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+
+##Author
+**user**
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details
+
+## Generated
+
+**generator-lit-element-base** - *yeoman npm package* - by [@manufosela](https://github.com/manufosela/generator-litelement-webcomponent)

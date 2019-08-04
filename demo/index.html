@@ -1,69 +1,169 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-
     <title>firebase-loginbutton demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script type="module" src="../firebase-loginbutton.js"></script>
+    <style>
+      .blocks {
+        display:flex;
+        flex-flow:column;
+        flex-wrap: wrap;
+      }
+      .block {
+        display:flex;
+        flex-flow:column;
+        flex-wrap: wrap;
+        white-space: normal;
+      }
+      .code {
+        padding: 20px;
+        color:#FFF; 
+        background: #000;
+      }
+      .attributes {
+        padding-left: 20px;
+      }
 
-    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../firebase-loginbutton.html">
-
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      </style>
-    </custom-style>
+      .demo-main {
+        display:flex;
+        flex-flow: row wrap;
+        justify-content: space-around;
+      }
+      .demo-main .demo-main__item {
+        display:block;
+      }
+      .info {
+        margin: 50px;
+        border: 2px solid black;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 1.2rem;
+      }
+    </style>
   </head>
 
   <body>
     <div class="vertical-section-container centered">
-      <h3>Basic firebase-loginbutton demo</h3>
-      <demo-snippet>
-        <template>
-          <firebase-loginbutton 
-            domain="coleccion-peliculas.firebaseapp.com"
-            apikey="AIzaSyBaehmgaklz_vaqsBVZhvBm0fsD7PF8PHQ" 
-            provider="google">
-          </firebase-loginbutton>
-        </template>
-      </demo-snippet>
-      <h3>Basic firebase-loginbutton demo - Display Name</h3>
-      <demo-snippet>
-        <template>
-          <firebase-loginbutton 
-            domain="coleccion-peliculas.firebaseapp.com"
-            apikey="AIzaSyBaehmgaklz_vaqsBVZhvBm0fsD7PF8PHQ" 
-            provider="google"
-            show="name">
-          </firebase-loginbutton>
-        </template>
-      </demo-snippet>
-      <h3>Basic firebase-loginbutton demo - Diplay Name and Photo</h3>
-      <demo-snippet>
-        <template>
-          <firebase-loginbutton 
-            domain="coleccion-peliculas.firebaseapp.com"
-            apikey="AIzaSyBaehmgaklz_vaqsBVZhvBm0fsD7PF8PHQ" 
-            provider="google"
-            show="name"
-            showphoto>
-          </firebase-loginbutton>
-        </template>
-      </demo-snippet>
-    </div>
+      <h3>Basic firebase-loginbutton Demo</h3>
+      <div class="blocks">
+        <pre class="block code">
+          <code>
+            &lt;firebase-loginbutton&gt;&lt;/firebase-loginbutton&gt;
+          </code>
+        </pre>
+        <pre class="block code">
+          <code>
+              &lt;firebase-loginbutton 
+                path="/path-to-firebase" 
+                api-key="YOUR-FIREBASE-API-KEY"
+                domain="YOUR-FIREBASE-DOMAIN"
+                messaging-sender-id="YOUR-SENDER-ID"
+                app-id="YOUR-APP-ID"
+                [show-email]
+                [show-icon]
+                [show-user]
+                [show-photo]&gt;      
+            &lt;/firebase-loginbutton&gt;
+          </code>
+        </pre>
+        <div class="demo-main">
+          <pre class="block attributes">
+            <h3>Attributes</h3>
+            <ul>
+              <li>path (String)</li>
+              <li>api-key (String)</li>
+              <li>domain (String)</li>
+              <li>messaging-sender-id (String)</li>
+              <li>app-id (String)</li>
+              <li>[show-email] (Boolean)</li>
+              <li>[show-icon] (Boolean)</li>
+              <li>[show-user] (Boolean)</li>
+              <li>[show-photo] (Boolean)</li>
+            </ul>
+          </pre>
+          <pre class="block attributes">
+              <h3>CSS Variables</h3>
+              <ul>
+                <li>--btn-primary-color: rgb(204, 204, 204);</li>
+                <li>--btn-background-color: rgb(255, 57, 0);</li>
+                <li>--btn-secondary-color: black;</li>
+                <li>--btn-text-user-color: #FF0;</li>
+                <li>--icon-bg-color-singin: #0A0;</li>
+                <li>--icon-bg-color-singout: #A00;</li>
+              </ul>
+            </pre>
+          </div>
+      </div>
 
-    <script>
-      document.addEventListener('firebase-signin', signin, false);
-      document.addEventListener('firebase-signout', signout, false);
-      function signin(payload) {
-        console.log("SIGN IN", payload)
-      }
-      function signout(payload) {
-        console.log("SIGN OUT", payload)
-      }
-    </script>
+      <div class="demo-main">
+        <div class="demo-main__item">
+          <h1>Example 1</h1>
+          <h2>Default button</h2>
+          <firebase-loginbutton 
+            id = "btn1"
+            path="/categoria" 
+            api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
+            domain="coleccion-peliculas"
+            messaging-sender-id="852819704247"
+            app-id="1:852819704247:web:9ac0a093401920ed">      
+          </firebase-loginbutton>
+        </div>
+
+        <div class="demo-main__item">
+          <h1>Example 2</h1>
+          <h2>Default style variables</h2>
+          <firebase-loginbutton 
+            id = "btn1"
+            path="/categoria" 
+            api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
+            domain="coleccion-peliculas"
+            messaging-sender-id="852819704247"
+            app-id="1:852819704247:web:9ac0a093401920ed"
+            show-email show-icon show-user show-photo>      
+          </firebase-loginbutton>
+        </div>
+
+        <div class="demo-main__item">
+          <h1>Example 3</h1>
+          <h2>Redefined style variables</h2>
+          <style>
+            #btn2 {
+              --btn-primary-color: rgb(231, 179, 179);
+              --btn-background-color: rgb(41, 37, 255);
+              --btn-secondary-color: white;
+              --btn-text-user-color: rgb(11, 22, 22);
+              --icon-bg-color-singin: #FA0;
+              --icon-bg-color-singout: #0AA;
+            }
+          </style>
+          <firebase-loginbutton 
+            id="btn2"
+            path="/categoria" 
+            api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
+            domain="coleccion-peliculas"
+            messaging-sender-id="852819704247"
+            app-id="1:852819704247:web:9ac0a093401920ed"
+            show-email show-icon show-user show-photo>      
+          </firebase-loginbutton>
+        </div>
+      </div>
+
+      <div id="data" class="info"></div>
+
+      <script>
+        document.addEventListener('firebase-signin', logado, false);
+        document.addEventListener('firebase-signout', deslogado, false);
+
+        function logado(payload) {
+          document.querySelector("#data").innerHTML = 'Está logado (recogido evento firebase-signin)</p><p>' + payload.detail.user.displayName;
+        }
+
+        function deslogado(payload) {
+          document.querySelector("#data").innerHTML = 'Está DESlogado (recogido evento firebase-signout)</p><p>' + payload.detail.user;
+        }
+      </script>
+    </div>
   </body>
 </html>
