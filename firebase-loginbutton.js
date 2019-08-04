@@ -28,9 +28,6 @@ class FirebaseLoginbutton extends LitElement {
       uid: {
         type: String
       },
-      path: {
-        type: String
-      },
       apiKey: {
         type: String,
         attribute: 'api-key'
@@ -129,7 +126,6 @@ class FirebaseLoginbutton extends LitElement {
 
   constructor() {
     super();
-    this.path = '/';
     this.showEmail = false;
     this.showUser = false;
     this.showIcon = false;
