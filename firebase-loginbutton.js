@@ -12,11 +12,13 @@ import 'firebase/firebase-auth';
  * @demo demo/index.html
  */
 class FirebaseLoginbutton extends LitElement {
-  static get is() { return 'firebase-loginbutton'; }
+  static get is() {
+    return 'firebase-loginbutton';
+  }
 
   static get properties() {
     return {
-      dataUser:{
+      dataUser: {
         type: Object
       },
       displayName: {
