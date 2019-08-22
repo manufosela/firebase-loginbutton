@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <script type="module" src="../firebase-loginbutton.js"></script>
     <style>
+      h2 { width: 20vh; }
       .blocks {
         display:flex;
         flex-flow:column;
@@ -110,7 +111,20 @@
 
         <div class="demo-main__item">
           <h1>Example 2</h1>
-          <h2>Default style variables</h2>
+          <h2>Default button. Hidden when login</h2>
+          <firebase-loginbutton 
+            id = "btn1"
+            api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
+            domain="coleccion-peliculas"
+            messaging-sender-id="852819704247"
+            app-id="1:852819704247:web:9ac0a093401920ed"
+            hide-if-login>      
+          </firebase-loginbutton>
+        </div>
+
+        <div class="demo-main__item">
+          <h1>Example 3</h1>
+          <h2>Default style variables. Show icon, photo, email and name</h2>
           <firebase-loginbutton 
             id = "btn1"
             api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
@@ -122,8 +136,8 @@
         </div>
 
         <div class="demo-main__item">
-          <h1>Example 3</h1>
-          <h2>Redefined style variables</h2>
+          <h1>Example 4</h1>
+          <h2>Redefined style variables. Show photo, email and name</h2>
           <style>
             #btn2 {
               --btn-primary-color: rgb(231, 179, 179);
@@ -140,7 +154,7 @@
             domain="coleccion-peliculas"
             messaging-sender-id="852819704247"
             app-id="1:852819704247:web:9ac0a093401920ed"
-            show-email show-icon show-user show-photo>      
+            show-email show-user show-photo>      
           </firebase-loginbutton>
         </div>
       </div>

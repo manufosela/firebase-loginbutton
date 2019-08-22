@@ -70,6 +70,10 @@ class FirebaseLoginbutton extends LitElement {
       infobtn: {
         type: String,
         attribute: false
+      },
+      hideIfLogin: {
+        type: Boolean,
+        attribute: 'hide-if-login'
       }
     };
   }
@@ -121,6 +125,10 @@ class FirebaseLoginbutton extends LitElement {
         font-weight: bold;
         font-size: 0.8rem;
       }
+      .hide {
+        display:none;
+        visibility: hidden;
+      }
     `;
   }
 
@@ -130,6 +138,8 @@ class FirebaseLoginbutton extends LitElement {
     this.showUser = false;
     this.showIcon = false;
     this.showPhoto = false;
+    this.hideIfLogin = false;
+    this.name = 'NAME'; //TODO: generate a random Name to identify the component from others.
   }
 
   connectedCallback() {
@@ -167,30 +177,35 @@ class FirebaseLoginbutton extends LitElement {
 
   onAuthStateChanged() {
     firebase.auth().onAuthStateChanged(function(user) {
+      let sR = this.shadowRoot;
       if (user) {
-        this.iconLogout = `<svg id="logout-icon" width="23" height="21" class="signout"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>`;
+        this.iconLogout = '<svg id="logout-icon" width="23" height="21" class="signout"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>';
         this.displayName = user.displayName;
         this.email = user.email;
         this.uid = user.uid;
         this.photo = user.photoURL;
-        this.shadowRoot.querySelector('.button-photo').innerHTML = (this.showPhoto) ? `<img src="${this.photo}" />` : '';
-        this.shadowRoot.querySelector('.button-text').innerText = 'Sign out';
-        this.shadowRoot.querySelector('.button-icon').innerHTML = (this.showIcon) ? `${this.iconLogout}` : '';
-        this.shadowRoot.querySelector('.button-user').textContent = (this.showUser) ? `${this.displayName}` : '';
-        this.shadowRoot.querySelector('.button-email').textContent = (this.showEmail) ? `${this.email}` : '';
-        this.shadowRoot.querySelector('#quickstart-sign-in').disabled = false;
+        sR.querySelector('.button-photo').innerHTML = (this.showPhoto) ? `<img src="${this.photo}" />` : '';
+        sR.querySelector('.button-text').innerText = 'Sign out';
+        sR.querySelector('.button-icon').innerHTML = (this.showIcon) ? `${this.iconLogout}` : '';
+        sR.querySelector('.button-user').textContent = (this.showUser) ? `${this.displayName}` : '';
+        sR.querySelector('.button-email').textContent = (this.showEmail) ? `${this.email}` : '';
+        sR.querySelector('#quickstart-sign-in').disabled = false;
+        if (this.hideIfLogin) {
+          sR.querySelector('.wrapper__layer--login').classList.add('hide');
+        }
 
-        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: user}}));
+        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: user, name: this.name}}));
       } else {
-        this.iconLogout = `<svg id="logout-icon" width="23" height="21" class="signin"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>`;
-        this.shadowRoot.querySelector('.button-photo').textContent = '';
-        this.shadowRoot.querySelector('.button-text').textContent = 'Sign in';
-        this.shadowRoot.querySelector('.button-icon').innerHTML = (this.showIcon) ? `${this.iconLogout}` : '';
-        this.shadowRoot.querySelector('.button-user').textContent = '';
-        this.shadowRoot.querySelector('.button-email').textContent = '';
-        this.shadowRoot.querySelector('#quickstart-sign-in').disabled = false;
+        this.iconLogout = '<svg id="logout-icon" width="23" height="21" class="signin"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>';
+        sR.querySelector('.button-photo').textContent = '';
+        sR.querySelector('.button-text').textContent = 'Sign in';
+        sR.querySelector('.button-icon').innerHTML = (this.showIcon) ? `${this.iconLogout}` : '';
+        sR.querySelector('.button-user').textContent = '';
+        sR.querySelector('.button-email').textContent = '';
+        sR.querySelector('#quickstart-sign-in').disabled = false;
+        sR.querySelector('.wrapper__layer--login').classList.remove('hide');
 
-        document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {user: this.email}}));
+        document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {user: this.email, name: this.name}}));
 
         this.displayName = undefined;
         this.email = undefined;

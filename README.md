@@ -26,6 +26,7 @@ Lit-Element web component description
   domain="YOUR-FIREBASE-DOMAIN"
   messaging-sender-id="YOUR-SENDER-ID"
   app-id="YOUR-APP-ID"
+  [hide-if-login]
   [show-email]
   [show-icon]
   [show-user]
@@ -50,6 +51,7 @@ And don't forget to unsubscribe to events if the component is destroyed:
 * domain (String): Your firebase DOMAIN
 * messaging-sender-id (String):  Your firebase MESSAGING-SENDER-ID
 * app-id (String):  Your firebase APP-ID
+* [hide-if-login] (Boolean): Optiona. Use if you use two or more components, to hide if it is not the first.
 * [show-email] (Boolean): Optional. Use if you want to show logged user email into the button
 * [show-icon] (Boolean): Optional. Use if you want to show on/off icon into the button
 * [show-user] (Boolean): Optional. Use if you want to show logged user display name into the button
