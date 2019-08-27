@@ -113,7 +113,7 @@
           <h1>Example 2</h1>
           <h2>Default button. Hidden when login</h2>
           <firebase-loginbutton 
-            id = "btn1"
+            id = "btn2"
             api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
             domain="coleccion-peliculas"
             messaging-sender-id="852819704247"
@@ -126,7 +126,7 @@
           <h1>Example 3</h1>
           <h2>Default style variables. Show icon, photo, email and name</h2>
           <firebase-loginbutton 
-            id = "btn1"
+            id = "btn3"
             api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
             domain="coleccion-peliculas"
             messaging-sender-id="852819704247"
@@ -149,7 +149,7 @@
             }
           </style>
           <firebase-loginbutton 
-            id="btn2"
+            id="btn4"
             api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
             domain="coleccion-peliculas"
             messaging-sender-id="852819704247"
@@ -167,10 +167,12 @@
 
         function logado(payload) {
           document.querySelector("#data").innerHTML = 'Está logado (recogido evento firebase-signin)</p><p>' + payload.detail.user.displayName;
+          console.log('logged');
         }
 
         function deslogado(payload) {
           document.querySelector("#data").innerHTML = 'Está DESlogado (recogido evento firebase-signout)</p><p>' + payload.detail.user;
+          console.log('loggout');
         }
       </script>
     </div>

@@ -6,7 +6,7 @@ import 'firebase/firebase-auth';
  * `firebase-loginbutton`
  * FirebaseLoginbutton
  *
- * @customElement
+ * @customElement firebase-loginbutton
  * @polymer
  * @litElement
  * @demo demo/index.html
@@ -142,6 +142,9 @@ class FirebaseLoginbutton extends LitElement {
     this.showPhoto = false;
     this.hideIfLogin = false;
     this.name = 'NAME'; //TODO: generate a random Name to identify the component from others.
+
+    this.dispachtSingIn = false;
+    this.dispachtSingOut = false;
   }
 
   connectedCallback() {
@@ -195,8 +198,11 @@ class FirebaseLoginbutton extends LitElement {
         if (this.hideIfLogin) {
           sR.querySelector('.wrapper__layer--login').classList.add('hide');
         }
-
-        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: user, name: this.name}}));
+        if (!this.dispachtSingIn) {
+          document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: user, name: this.name, id: this.id}}));
+          this.dispachtSingIn = true;
+          this.dispachtSingOut = false;
+        }
       } else {
         this.iconLogout = '<svg id="logout-icon" width="23" height="21" class="signin"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>';
         sR.querySelector('.button-photo').textContent = '';
@@ -207,8 +213,11 @@ class FirebaseLoginbutton extends LitElement {
         sR.querySelector('#quickstart-sign-in').disabled = false;
         sR.querySelector('.wrapper__layer--login').classList.remove('hide');
 
-        document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {user: this.email, name: this.name}}));
-
+        if (!this.dispachtSingOut) {
+          document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {user: this.email, name: this.name, id: this.id}}));
+          this.dispachtSingIn = false;
+          this.dispachtSingOut = true;
+        }
         this.displayName = undefined;
         this.email = undefined;
         this.uid = undefined;
