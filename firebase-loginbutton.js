@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
-import 'firebase/firebase-app';
-import 'firebase/firebase-auth';
+
 
 /**
  * `firebase-loginbutton`
@@ -136,6 +135,10 @@ class FirebaseLoginbutton extends LitElement {
 
   constructor() {
     super();
+    if (typeof firebase === 'undefined') {
+      throw new Error('To work firebase-loginbutton: Please, import firebase-app and firebase-auth first');
+    }
+
     this.showEmail = false;
     this.showUser = false;
     this.showIcon = false;
