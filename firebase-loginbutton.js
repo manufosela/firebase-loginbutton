@@ -149,6 +149,12 @@ class FirebaseLoginbutton extends LitElement {
 
     this.dispachtSingIn = false;
     this.dispachtSingOut = false;
+
+    document.addEventListener('firebase-are-you-logged', (e) => {
+      if (!this.dispachtSingIn) {
+        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: user, name: this.name, id: this.id}}));
+      }
+    });
   }
 
   connectedCallback() {
