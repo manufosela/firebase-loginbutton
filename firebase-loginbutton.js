@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
-
+import 'firebase/firebase-app';
+import 'firebase/firebase-auth';
 
 /**
  * `firebase-loginbutton`
