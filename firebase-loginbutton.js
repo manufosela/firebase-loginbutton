@@ -152,7 +152,7 @@ class FirebaseLoginbutton extends LitElement {
 
     document.addEventListener('firebase-are-you-logged', (e) => {
       if (!this.dispachtSingIn) {
-        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.displayName, name: this.name, id: this.id}}));
+        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, name: this.name, id: this.id}}));
       }
     });
   }
@@ -165,7 +165,7 @@ class FirebaseLoginbutton extends LitElement {
     super.disconnectedCallback();
     document.addEventListener('firebase-are-you-logged', (e) => {
       if (!this.dispachtSingIn) {
-        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.displayName, name: this.name, id: this.id}}));
+        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, name: this.name, id: this.id}}));
       }
     });
   }
@@ -198,6 +198,7 @@ class FirebaseLoginbutton extends LitElement {
   onAuthStateChanged() {
     firebase.auth().onAuthStateChanged(function(user) {
       let sR = this.shadowRoot;
+      this.dataUser = user;
       if (user) {
         this.iconLogout = '<svg id="logout-icon" width="23" height="21" class="signout"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>';
         this.displayName = user.displayName;
