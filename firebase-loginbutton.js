@@ -152,7 +152,7 @@ class FirebaseLoginbutton extends LitElement {
 
     document.addEventListener('firebase-are-you-logged', (e) => {
       if (!this.dispachtSingIn) {
-        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: user, name: this.name, id: this.id}}));
+        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.displayName, name: this.name, id: this.id}}));
       }
     });
   }
@@ -163,6 +163,11 @@ class FirebaseLoginbutton extends LitElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    document.addEventListener('firebase-are-you-logged', (e) => {
+      if (!this.dispachtSingIn) {
+        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.displayName, name: this.name, id: this.id}}));
+      }
+    });
   }
 
   attributeChangedCallback(name, oldval, newval) {
