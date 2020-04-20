@@ -92,8 +92,8 @@ class FirebaseLoginbutton extends LitElement {
         --icon-bg-color-singout: #A00;
       }
       svg { border:0; border-radius: 50%; padding:5px; padding-bottom: 6px; }
-      svg.signin { background: var(--icon-bg-color-singin);}
-      svg.signout { background: var(--icon-bg-color-singout); }
+      .signin { background: var(--icon-bg-color-singin);}
+      .signout { background: var(--icon-bg-color-singout); }
       img { margin:0 5px; }
       .wrapper__login--button {
         display:flex;
@@ -106,6 +106,14 @@ class FirebaseLoginbutton extends LitElement {
         flex-flow: row wrap;
         justify-content: space-around;
         max-width: 200px;
+      }
+      .wrapper__login--button-mobile {
+        cursor: pointer;
+        border:0;
+        background-color: transparent;
+        padding:0;
+        flex-flow: row wrap;
+        justify-content: space-around;
       }
       .button-text {
         padding-top: 5px;
@@ -150,20 +158,23 @@ class FirebaseLoginbutton extends LitElement {
     this.dispachtSingIn = false;
     this.dispachtSingOut = false;
 
-    document.addEventListener('firebase-are-you-logged', (e) => {
-      document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, name: this.name, id: this.id}}));
-    });
+    this.isMobile = navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i) !== null;
+
+    this._dispatchSignin = this._dispatchSignin.bind(this);
+  }
+
+  _dispatchSignin(ev) {
+    document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, name: this.name, id: this.id}}));
   }
 
   connectedCallback() {
     super.connectedCallback();
+    document.addEventListener('firebase-are-you-logged', this._dispatchSignin);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('firebase-are-you-logged', (e) => {
-      document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, name: this.name, id: this.id}}));
-    });
+    document.removeEventListener('firebase-are-you-logged', this._dispatchSignin);
   }
 
   attributeChangedCallback(name, oldval, newval) {
@@ -171,7 +182,7 @@ class FirebaseLoginbutton extends LitElement {
     this.hasParams = !!(this.apiKey && this.domain && this.messagingSenderId && this.appId);
     if (this.hasParams) {
       this.firebaseInitialize();
-      this.infobtn = 'login with "' + this.domain + '" firebase database';
+      this.infobtn = 'login with ' + this.domain + ' firebase database';
     }
   }
 
@@ -191,49 +202,92 @@ class FirebaseLoginbutton extends LitElement {
     this.onAuthStateChanged();
   }
 
+  _checkEventsLogin(user) {
+    if (user) {
+      if (!this.dispachtSingIn) {
+        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: user, name: this.name, id: this.id}}));
+        this.dispachtSingIn = true;
+        this.dispachtSingOut = false;
+      }
+    } else {
+      if (!this.dispachtSingOut) {
+        document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {user: this.email, name: this.name, id: this.id}}));
+        this.dispachtSingIn = false;
+        this.dispachtSingOut = true;
+      }
+    }
+  }
+
+  _getUserInfo(user) {
+    if (user) {
+      this.displayName = user.displayName;
+      this.email = user.email;
+      this.uid = user.uid;
+      this.photo = user.photoURL;
+    }
+  }
+
+  _drawButtonLogin() {
+    const sR = this.shadowRoot;
+    if (!this.isMobile) {
+      sR.querySelector('.button-photo').innerHTML = (this.showPhoto) ? `<img src="${this.photo}" />` : '';
+      sR.querySelector('.button-text').innerText = 'Sign out';
+      sR.querySelector('.button-icon').innerHTML = (this.showIcon) ? `${this.iconLogout}` : '';
+      sR.querySelector('.button-user').textContent = (this.showUser) ? `${this.displayName}` : '';
+      sR.querySelector('.button-email').textContent = (this.showEmail) ? `${this.email}` : '';
+      if (this.hideIfLogin) {
+        sR.querySelector('.wrapper__layer--login').classList.add('hide');
+      }
+      sR.querySelector('#quickstart-sign-in').classList.add('wrapper__login--button');
+      sR.querySelector('#quickstart-sign-in').classList.remove('wrapper__login--button-mobile');
+    } else {
+      sR.querySelector('.button-icon').innerHTML = `${this.iconLogout}`;
+      if (this.hideIfLogin) {
+        sR.querySelector('.wrapper__layer--login').classList.add('hide');
+      }
+      sR.querySelector('#quickstart-sign-in').classList.remove('wrapper__login--button');
+      sR.querySelector('#quickstart-sign-in').classList.add('wrapper__login--button-mobile');
+    }
+    sR.querySelector('.button-icon svg').classList.remove('signin');
+    sR.querySelector('.button-icon svg').classList.add('signout');
+  }
+
+  _drawButtonLogout() {
+    const sR = this.shadowRoot;
+    if (!this.isMobile) {
+      sR.querySelector('.button-photo').textContent = '';
+      sR.querySelector('.button-text').textContent = 'Sign in';
+      sR.querySelector('.button-icon').innerHTML = (this.showIcon) ? `${this.iconLogout}` : '';
+      sR.querySelector('.button-user').textContent = '';
+      sR.querySelector('.button-email').textContent = '';
+      sR.querySelector('#quickstart-sign-in').classList.add('wrapper__login--button');
+      sR.querySelector('#quickstart-sign-in').classList.remove('wrapper__login--button-mobile');
+    } else {
+      sR.querySelector('.button-icon').innerHTML = `${this.iconLogout}`;
+      sR.querySelector('#quickstart-sign-in').classList.remove('wrapper__login--button');
+      sR.querySelector('#quickstart-sign-in').classList.add('wrapper__login--button-mobile');
+    }
+    sR.querySelector('.wrapper__layer--login').classList.remove('hide');
+    sR.querySelector('.button-icon svg').classList.add('signin');
+    sR.querySelector('.button-icon svg').classList.remove('signout');
+    this.displayName = undefined;
+    this.email = undefined;
+    this.uid = undefined;
+  }
+
   onAuthStateChanged() {
     firebase.auth().onAuthStateChanged(function(user) {
-      let sR = this.shadowRoot;
+      const sR = this.shadowRoot;
       this.dataUser = user;
+      this.iconLogout = '<svg id="logout-icon" width="23" height="21" class="signout"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>';
+      this._getUserInfo(user);
+      sR.querySelector('#quickstart-sign-in').disabled = false;
       if (user) {
-        this.iconLogout = '<svg id="logout-icon" width="23" height="21" class="signout"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>';
-        this.displayName = user.displayName;
-        this.email = user.email;
-        this.uid = user.uid;
-        this.photo = user.photoURL;
-        sR.querySelector('.button-photo').innerHTML = (this.showPhoto) ? `<img src="${this.photo}" />` : '';
-        sR.querySelector('.button-text').innerText = 'Sign out';
-        sR.querySelector('.button-icon').innerHTML = (this.showIcon) ? `${this.iconLogout}` : '';
-        sR.querySelector('.button-user').textContent = (this.showUser) ? `${this.displayName}` : '';
-        sR.querySelector('.button-email').textContent = (this.showEmail) ? `${this.email}` : '';
-        sR.querySelector('#quickstart-sign-in').disabled = false;
-        if (this.hideIfLogin) {
-          sR.querySelector('.wrapper__layer--login').classList.add('hide');
-        }
-        if (!this.dispachtSingIn) {
-          document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: user, name: this.name, id: this.id}}));
-          this.dispachtSingIn = true;
-          this.dispachtSingOut = false;
-        }
+        this._drawButtonLogin();
       } else {
-        this.iconLogout = '<svg id="logout-icon" width="23" height="21" class="signin"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>';
-        sR.querySelector('.button-photo').textContent = '';
-        sR.querySelector('.button-text').textContent = 'Sign in';
-        sR.querySelector('.button-icon').innerHTML = (this.showIcon) ? `${this.iconLogout}` : '';
-        sR.querySelector('.button-user').textContent = '';
-        sR.querySelector('.button-email').textContent = '';
-        sR.querySelector('#quickstart-sign-in').disabled = false;
-        sR.querySelector('.wrapper__layer--login').classList.remove('hide');
-
-        if (!this.dispachtSingOut) {
-          document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {user: this.email, name: this.name, id: this.id}}));
-          this.dispachtSingIn = false;
-          this.dispachtSingOut = true;
-        }
-        this.displayName = undefined;
-        this.email = undefined;
-        this.uid = undefined;
+        this._drawButtonLogout();
       }
+      this._checkEventsLogin(user);
     }.bind(this));
   }
 
@@ -256,7 +310,7 @@ class FirebaseLoginbutton extends LitElement {
       <section class="wrapper__layer--login">
       ${this.hasParams ? html`
         <div id="user" class="wrapper__user"></div>
-        <button disabled class="wrapper__login--button" id="quickstart-sign-in" @click="${this.toggleSignIn}" title="${this.infobtn}">
+        <button disabled id="quickstart-sign-in" @click="${this.toggleSignIn}" title="${this.infobtn}">
           <div class="button-photo"></div>
           <div class="button-text"></div>
           <div class="button-icon"></div>
