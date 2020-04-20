@@ -139,6 +139,24 @@ class FirebaseLoginbutton extends LitElement {
         display:none;
         visibility: hidden;
       }
+      @media screen and (max-width: 980px) {
+        .wrapper__login--button {
+          font-size: 0.9rem;
+          width: 110px;
+          padding: 2px;
+        }
+        .button-email {
+          display:none;
+        }
+        .button-user {
+          display:none;
+        }
+      }
+      @media screen and (max-width: 480px) {
+        .button-photo img {
+          display:none;
+        }
+      }
     `;
   }
 
