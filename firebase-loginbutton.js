@@ -266,7 +266,7 @@ class FirebaseLoginbutton extends LitElement {
       sR.querySelector('#quickstart-sign-in').classList.remove('wrapper__login--button');
       sR.querySelector('#quickstart-sign-in').classList.add('wrapper__login--button-mobile');
     }
-    if (this.iconLogout) {
+    if (this.showIcon) {
       sR.querySelector('.button-icon svg').classList.remove('signin');
       sR.querySelector('.button-icon svg').classList.add('signout');
     }
@@ -288,7 +288,7 @@ class FirebaseLoginbutton extends LitElement {
       sR.querySelector('#quickstart-sign-in').classList.add('wrapper__login--button-mobile');
     }
     sR.querySelector('.wrapper__layer--login').classList.remove('hide');
-    if (this.iconLogout) {
+    if (this.showIcon) {
       sR.querySelector('.button-icon svg').classList.add('signin');
       sR.querySelector('.button-icon svg').classList.remove('signout');
     }
