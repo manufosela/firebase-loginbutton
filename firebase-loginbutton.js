@@ -266,8 +266,10 @@ class FirebaseLoginbutton extends LitElement {
       sR.querySelector('#quickstart-sign-in').classList.remove('wrapper__login--button');
       sR.querySelector('#quickstart-sign-in').classList.add('wrapper__login--button-mobile');
     }
-    sR.querySelector('.button-icon svg').classList.remove('signin');
-    sR.querySelector('.button-icon svg').classList.add('signout');
+    if (this.iconLogout) {
+      sR.querySelector('.button-icon svg').classList.remove('signin');
+      sR.querySelector('.button-icon svg').classList.add('signout');
+    }
   }
 
   _drawButtonLogout() {
@@ -286,8 +288,10 @@ class FirebaseLoginbutton extends LitElement {
       sR.querySelector('#quickstart-sign-in').classList.add('wrapper__login--button-mobile');
     }
     sR.querySelector('.wrapper__layer--login').classList.remove('hide');
-    sR.querySelector('.button-icon svg').classList.add('signin');
-    sR.querySelector('.button-icon svg').classList.remove('signout');
+    if (this.iconLogout) {
+      sR.querySelector('.button-icon svg').classList.add('signin');
+      sR.querySelector('.button-icon svg').classList.remove('signout');
+    }
     this.displayName = undefined;
     this.email = undefined;
     this.uid = undefined;
