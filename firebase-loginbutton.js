@@ -1,6 +1,8 @@
-import { LitElement, html, css } from 'lit-element';
-import 'firebase/firebase-app';
-import 'firebase/firebase-auth';
+import { LitElement, html } from 'lit-element';
+import { firebaseLoginbuttonStyles } from './firebase-loginbutton-style.js';
+
+import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 /**
  * `firebase-loginbutton`
@@ -18,6 +20,9 @@ class FirebaseLoginbutton extends LitElement {
 
   static get properties() {
     return {
+      appName:{
+        type: String,
+      },
       dataUser: {
         type: Object
       },
@@ -76,93 +81,20 @@ class FirebaseLoginbutton extends LitElement {
       hideIfLogin: {
         type: Boolean,
         attribute: 'hide-if-login'
-      }
+      },
+      firebaseApp: {
+        type: Object
+      }        
     };
   }
 
   static get styles() {
-    return css`
-      :host, :root{
-        display: block;
-        --btn-primary-color: rgb(204, 204, 204);
-        --btn-background-color: rgb(255, 57, 0);
-        --btn-secondary-color: black;
-        --btn-text-user-color: #FF0;
-        --icon-bg-color-singin: #0A0;
-        --icon-bg-color-singout: #A00;
-      }
-      svg { border:0; border-radius: 50%; padding:5px; padding-bottom: 6px; }
-      .signin { background: var(--icon-bg-color-singin);}
-      .signout { background: var(--icon-bg-color-singout); }
-      img { margin:0 5px; }
-      .wrapper__login--button {
-        display:flex;
-        font-size: 1.2rem;
-        background-color: var(--btn-background-color);
-        color: var(--btn-primary-color);
-        cursor: pointer;
-        border-radius: 10px;
-        padding: 10px 20px;
-        flex-flow: row wrap;
-        justify-content: space-around;
-        max-width: 200px;
-      }
-      .wrapper__login--button-mobile {
-        cursor: pointer;
-        border:0;
-        background-color: transparent;
-        padding:0;
-        flex-flow: row wrap;
-        justify-content: space-around;
-      }
-      .button-text {
-        padding-top: 5px;
-      }
-      .button-icon {
-        padding-top: 0;
-        margin-left: 5px;
-      }
-      .button-photo img {
-        border: 0;
-        width: 25px;
-        padding-top: 5px;
-      }
-      .button-user {
-        color: var(--btn-text-user-color);
-        font-size: 0.8rem;
-      }
-      .button-email {
-        font-weight: bold;
-        font-size: 0.8rem;
-      }
-      .hide {
-        display:none;
-        visibility: hidden;
-      }
-      @media screen and (max-width: 980px) {
-        .wrapper__login--button {
-          font-size: 0.9rem;
-          width: 110px;
-          padding: 2px;
-        }
-        .button-email {
-          display:none;
-        }
-        .button-user {
-          display:none;
-        }
-      }
-      @media screen and (max-width: 480px) {
-        .button-photo img {
-          display:none;
-        }
-      }
-    `;
+    return [firebaseLoginbuttonStyles];
   }
 
   constructor() {
     super();
-    if (typeof firebase === 'undefined') {
+    if (typeof initializeApp === 'undefined') {
       throw new Error('To work firebase-loginbutton: Please, import firebase-app and firebase-auth first');
     }
 
@@ -179,6 +111,8 @@ class FirebaseLoginbutton extends LitElement {
     this.isMobile = navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i) !== null;
 
     this._dispatchSignin = this._dispatchSignin.bind(this);
+
+    this.appName = `firebase-loginbutton-${this.id}`;
   }
 
   _dispatchSignin(ev) {
@@ -195,17 +129,17 @@ class FirebaseLoginbutton extends LitElement {
     document.removeEventListener('firebase-are-you-logged', this._dispatchSignin);
   }
 
-  attributeChangedCallback(name, oldval, newval) {
-    super.attributeChangedCallback(name, oldval, newval);
-    this.hasParams = !!(this.apiKey && this.domain && this.messagingSenderId && this.appId);
-    if (this.hasParams) {
-      this.firebaseInitialize();
-      this.infobtn = 'login with ' + this.domain + ' firebase database';
-    }
+  firstUpdated() {
+    this.firebaseInitialize();
   }
 
-  firebaseInitialize() {
-    if (firebase.apps.length === 0) {
+  attributeChangedCallback(name, oldval, newval) {
+     super.attributeChangedCallback(name, oldval, newval);
+     this.hasParams = !!(this.apiKey && this.domain && this.messagingSenderId && this.appId);
+  }
+
+  async firebaseInitialize() {
+    if (!this.firebaseApp) {
       const firebaseConfig = {
         apiKey: this.apiKey,
         authDomain: this.domain + '.firebaseapp.com',
@@ -215,9 +149,11 @@ class FirebaseLoginbutton extends LitElement {
         messagingSenderId: this.messagingSenderId,
         appId: this.appId
       };
-      firebase.initializeApp(firebaseConfig);
+      this.firebaseApp = await initializeApp(firebaseConfig, this.appName);
+      this.authStateChangedListener();
+    } else {
+      console.warn('firebaseApp not found');
     }
-    this.onAuthStateChanged();
   }
 
   _checkEventsLogin(user) {
@@ -297,32 +233,34 @@ class FirebaseLoginbutton extends LitElement {
     this.uid = undefined;
   }
 
-  onAuthStateChanged() {
-    firebase.auth().onAuthStateChanged(function(user) {
-      const sR = this.shadowRoot;
+  authStateChangedListener() {
+    this.auth = getAuth(this.firebaseApp);
+    onAuthStateChanged(this.auth, (user) => {
       this.dataUser = user;
       this.iconLogout = '<svg id="logout-icon" width="23" height="21" class="signout"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>';
       this._getUserInfo(user);
-      sR.querySelector('#quickstart-sign-in').disabled = false;
+      this.shadowRoot.querySelector('#quickstart-sign-in').disabled = false;
       if (user) {
         this._drawButtonLogin();
       } else {
         this._drawButtonLogout();
       }
       this._checkEventsLogin(user);
-    }.bind(this));
+    });
   }
 
-  toggleSignIn() {
-    if (!firebase.auth().currentUser) {
-      var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-        this.dataUser = result.user;
-      }.bind(this)).catch(function(error) {
-        console.log(error);
-      });
+  async toggleSignIn() {
+    if (!this.auth.currentUser) {
+      const provider = new GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      const result = await signInWithPopup(this.auth, provider);
+      
+      // The signed-in user info.
+      const user = result.user;
+      console.log(`Logged user ${user.name}`);
     } else {
-      firebase.auth().signOut();
+      this.auth.signOut();
     }
     this.shadowRoot.querySelector('#quickstart-sign-in').disabled = true;
   }
