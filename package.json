@@ -1,7 +1,7 @@
 {
   "name": "firebase-loginbutton",
   "description": "Lit-Element webcomponent firebase-loginbutton",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "firebase-loginbutton.js",
   "repository": {
     "type": "git",
@@ -29,9 +29,15 @@
     "es-dev-server": "^1.46.0",
     "rollup": "^1.1.0",
     "rollup-plugin-babel": "^4.3.0",
-    "rollup-plugin-node-resolve": "^4.0.0"
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "karma": "^6.3.4",
+    "karma-mocha": "^2.0.1",
+    "mocha": "^9.0.3",
+    "sinon": "^11.1.2"
   },
   "scripts": {
+    "test": "karma start",
+    "test:watch": "karma start --auto-watch=true --single-run=false",
     "build": "rm -rf build && mkdir build && rollup -c",
     "start": "es-dev-server --app-index /demo/index.html --node-resolve --watch --open"
   }
