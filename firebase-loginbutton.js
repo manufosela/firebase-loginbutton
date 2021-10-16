@@ -104,6 +104,7 @@ class FirebaseLoginbutton extends LitElement {
     this.showPhoto = false;
     this.hideIfLogin = false;
     this.name = 'NAME'; //TODO: generate a random Name to identify the component from others.
+    this.user = null;
 
     this.dispachtSingIn = false;
     this.dispachtSingOut = false;
@@ -115,7 +116,7 @@ class FirebaseLoginbutton extends LitElement {
     this.appName = `firebase-loginbutton-${this.id}`;
   }
 
-  _dispatchSignin(ev) {
+  _dispatchSignin() {
     document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, firebaseApp: this.firebaseApp, name: this.appName, id: this.id}}));
   }
 
@@ -257,8 +258,8 @@ class FirebaseLoginbutton extends LitElement {
       const result = await signInWithPopup(this.auth, provider);
       
       // The signed-in user info.
-      const user = result.user;
-      console.log(`Logged user ${user.name}`);
+      this.user = result.user;
+      console.log(`Logged user ${this.user.displayName}`);
     } else {
       this.auth.signOut();
     }
