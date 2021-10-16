@@ -1,7 +1,7 @@
 {
   "name": "firebase-loginbutton",
   "description": "Lit-Element webcomponent firebase-loginbutton",
-  "version": "3.0.3",
+  "version": "3.1.0",
   "main": "firebase-loginbutton.js",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   "homepage": "https://github.com/user/firebase-loginbutton",
   "dependencies": {
     "firebase": "^9.0.0-beta.6",
-    "lit-element": "^2.5.1"
+    "lit": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
