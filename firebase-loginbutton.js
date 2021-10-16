@@ -264,7 +264,6 @@ class FirebaseLoginbutton extends LitElement {
     } else {
       this.auth.signOut();
     }
-    this.shadowRoot.querySelector('#quickstart-sign-in').disabled = true;
   }
 
   render() {
