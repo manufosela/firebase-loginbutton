@@ -260,6 +260,7 @@ class FirebaseLoginbutton extends LitElement {
       // The signed-in user info.
       this.user = result.user;
       console.log(`Logged user ${this.user.displayName}`);
+      this._dispatchSignin();
     } else {
       this.auth.signOut();
     }
