@@ -116,7 +116,7 @@ class FirebaseLoginbutton extends LitElement {
   }
 
   _dispatchSignin(ev) {
-    document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, firebaseApp: this.firebaseApp, name: this.name, id: this.id}}));
+    document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, firebaseApp: this.firebaseApp, name: this.appName, id: this.id}}));
   }
 
   connectedCallback() {
