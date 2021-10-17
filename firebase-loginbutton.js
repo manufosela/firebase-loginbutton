@@ -104,30 +104,33 @@ class FirebaseLoginbutton extends LitElement {
     this.showPhoto = false;
     this.hideIfLogin = false;
     this.name = 'NAME'; //TODO: generate a random Name to identify the component from others.
-    this.user = null;
+    this.dataUser = null;
 
-    this.dispachtSingIn = false;
-    this.dispachtSingOut = false;
+    this.signedIn = false;
+    this.signedOut = false;
 
     this.isMobile = navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i) !== null;
 
-    this._dispatchSignin = this._dispatchSignin.bind(this);
+    this._dispatchSigninEvent = this._dispatchSigninEvent.bind(this);
 
     this.appName = `firebase-loginbutton-${this.id}`;
+    document.addEventListener
   }
 
-  _dispatchSignin() {
-    document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, firebaseApp: this.firebaseApp, name: this.appName, id: this.id}}));
+  _dispatchSigninEvent() {
+    if (this.signedIn) {
+      document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, firebaseApp: this.firebaseApp, name: this.appName, id: this.id}}));
+    }
   }
 
   connectedCallback() {
     super.connectedCallback();
-    document.addEventListener('firebase-are-you-logged', this._dispatchSignin);
+    document.addEventListener('firebase-are-you-logged', this._dispatchSigninEvent);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('firebase-are-you-logged', this._dispatchSignin);
+    document.removeEventListener('firebase-are-you-logged', this._dispatchSigninEvent);
   }
 
   firstUpdated() {
@@ -159,16 +162,16 @@ class FirebaseLoginbutton extends LitElement {
 
   _checkEventsLogin(user) {
     if (user) {
-      if (!this.dispachtSingIn) {
+      if (!this.signedIn) {
         document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: user, name: this.name, id: this.id}}));
-        this.dispachtSingIn = true;
-        this.dispachtSingOut = false;
+        this.signedIn = true;
+        this.signedOut = false;
       }
     } else {
-      if (!this.dispachtSingOut) {
+      if (!this.signedOut) {
         document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {user: this.email, name: this.name, id: this.id}}));
-        this.dispachtSingIn = false;
-        this.dispachtSingOut = true;
+        this.signedIn = false;
+        this.signedOut = true;
       }
     }
   }
@@ -258,9 +261,9 @@ class FirebaseLoginbutton extends LitElement {
       const result = await signInWithPopup(this.auth, provider);
       
       // The signed-in user info.
-      this.user = result.user;
-      console.log(`Logged user ${this.user.displayName}`);
-      this._dispatchSignin();
+      this.dataUser = result.user;
+      console.log(`Logged user ${this.dataUser.displayName}`);
+      this._dispatchSigninEvent();
     } else {
       this.auth.signOut();
     }
