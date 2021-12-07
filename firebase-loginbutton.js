@@ -42,6 +42,9 @@ class FirebaseLoginbutton extends LitElement {
       domain: {
         type: String
       },
+      zone: {
+        type: String
+      },
       messagingSenderId: {
         type: String,
         attribute: 'messaging-sender-id'
@@ -105,6 +108,7 @@ class FirebaseLoginbutton extends LitElement {
     this.hideIfLogin = false;
     this.name = 'NAME'; //TODO: generate a random Name to identify the component from others.
     this.dataUser = null;
+    this.zone = null;
 
     this.signedIn = false;
     this.signedOut = false;
@@ -147,7 +151,7 @@ class FirebaseLoginbutton extends LitElement {
       const firebaseConfig = {
         apiKey: this.apiKey,
         authDomain: this.domain + '.firebaseapp.com',
-        databaseURL: 'https://' + this.domain + '.firebaseio.com',
+        databaseURL: (this.zone === null) ? `https://${this.domain}.firebaseio.com` : `https://${this.domain}-default-rtdb.${this.zone}.firebasedatabase.app`,
         projectId: this.domain,
         storageBucket: this.domain + '.appspot.com',
         messagingSenderId: this.messagingSenderId,

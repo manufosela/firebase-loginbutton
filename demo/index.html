@@ -1,26 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>firebase-loginbutton demo</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes"
+    />
     <script type="module" src="../firebase-loginbutton.js"></script>
     <style>
-      h2 { width: 20vh; }
+      h2 {
+        width: 20vh;
+      }
       .blocks {
-        display:flex;
-        flex-flow:column;
+        display: flex;
+        flex-flow: column;
         flex-wrap: wrap;
       }
       .block {
-        display:flex;
-        flex-flow:column;
+        display: flex;
+        flex-flow: column;
         flex-wrap: wrap;
         white-space: normal;
       }
       .code {
         padding: 20px;
-        color:#FFF; 
+        color: #fff;
         background: #000;
       }
       .attributes {
@@ -28,12 +33,12 @@
       }
 
       .demo-main {
-        display:flex;
+        display: flex;
         flex-flow: row wrap;
         justify-content: space-around;
       }
       .demo-main .demo-main__item {
-        display:block;
+        display: block;
       }
       .info {
         margin: 50px;
@@ -59,6 +64,7 @@
               &lt;firebase-loginbutton 
                 api-key="YOUR-FIREBASE-API-KEY"
                 domain="YOUR-FIREBASE-DOMAIN"
+                zone="YOUR-FIREBASE-ZONE"
                 messaging-sender-id="YOUR-SENDER-ID"
                 app-id="YOUR-APP-ID"
                 [show-email]
@@ -74,6 +80,7 @@
             <ul>
               <li>api-key (String)</li>
               <li>domain (String)</li>
+              <li>zone (String)</li>
               <li>messaging-sender-id (String)</li>
               <li>app-id (String)</li>
               <li>[show-email] (Boolean)</li>
@@ -93,45 +100,58 @@
                 <li>--icon-bg-color-singout: #A00;</li>
               </ul>
             </pre>
-          </div>
+        </div>
       </div>
 
       <div class="demo-main">
         <div class="demo-main__item">
           <h1>Example 1</h1>
           <h2>Default button</h2>
-          <firebase-loginbutton 
-            id = "btn1"
+          <firebase-loginbutton
+            id="btn1"
             api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
             domain="coleccion-peliculas"
+            zone="europe-west1"
             messaging-sender-id="852819704247"
-            app-id="1:852819704247:web:9ac0a093401920ed">      
+            app-id="1:852819704247:web:9ac0a093401920ed"
+          >
           </firebase-loginbutton>
         </div>
 
         <div class="demo-main__item">
           <h1>Example 2</h1>
-          <h2 title="Into console write 'document.getElementById('btn2')auth.signOut()' to logout">Default button. Hidden when login</h2>
-          <firebase-loginbutton 
-            id = "btn2"
+          <h2
+            title="Into console write 'document.getElementById('btn2')auth.signOut()' to logout"
+          >
+            Default button. Hidden when login
+          </h2>
+          <firebase-loginbutton
+            id="btn2"
             api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
             domain="coleccion-peliculas"
+            zone="europe-west1"
             messaging-sender-id="852819704247"
             app-id="1:852819704247:web:9ac0a093401920ed"
-            hide-if-login>      
+            hide-if-login
+          >
           </firebase-loginbutton>
         </div>
 
         <div class="demo-main__item">
           <h1>Example 3</h1>
           <h2>Default style variables. Show icon, photo, email and name</h2>
-          <firebase-loginbutton 
-            id = "btn3"
+          <firebase-loginbutton
+            id="btn3"
             api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
             domain="coleccion-peliculas"
+            zone="europe-west1"
             messaging-sender-id="852819704247"
             app-id="1:852819704247:web:9ac0a093401920ed"
-            show-email show-icon show-user show-photo>      
+            show-email
+            show-icon
+            show-user
+            show-photo
+          >
           </firebase-loginbutton>
         </div>
 
@@ -144,17 +164,21 @@
               --btn-background-color: rgb(41, 37, 255);
               --btn-secondary-color: white;
               --btn-text-user-color: rgb(11, 22, 22);
-              --icon-bg-color-singin: #FA0;
-              --icon-bg-color-singout: #0AA;
+              --icon-bg-color-singin: #fa0;
+              --icon-bg-color-singout: #0aa;
             }
           </style>
-          <firebase-loginbutton 
+          <firebase-loginbutton
             id="btn4"
             api-key="AIzaSyCVpVjyqS9qNcTsTDuQ8qBL1i4VPy5CdpY"
             domain="coleccion-peliculas"
+            zone="europe-west1"
             messaging-sender-id="852819704247"
             app-id="1:852819704247:web:9ac0a093401920ed"
-            show-email show-user show-photo>      
+            show-email
+            show-user
+            show-photo
+          >
           </firebase-loginbutton>
         </div>
       </div>
@@ -162,17 +186,21 @@
       <div id="data" class="info"></div>
 
       <script>
-        document.addEventListener('firebase-signin', logado, false);
-        document.addEventListener('firebase-signout', deslogado, false);
+        document.addEventListener("firebase-signin", logado, false);
+        document.addEventListener("firebase-signout", deslogado, false);
 
         function logado(payload) {
-          document.querySelector("#data").innerHTML = 'Está logado (recogido evento firebase-signin)</p><p>' + payload.detail.user.displayName;
-          console.log('logged');
+          document.querySelector("#data").innerHTML =
+            "Está logado (recogido evento firebase-signin)</p><p>" +
+            payload.detail.user.displayName;
+          console.log("logged");
         }
 
         function deslogado(payload) {
-          document.querySelector("#data").innerHTML = 'Está DESlogado (recogido evento firebase-signout)</p><p>' + payload.detail.user;
-          console.log('logout');
+          document.querySelector("#data").innerHTML =
+            "Está DESlogado (recogido evento firebase-signout)</p><p>" +
+            payload.detail.user;
+          console.log("logout");
         }
       </script>
     </div>
