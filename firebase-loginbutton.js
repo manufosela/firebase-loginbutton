@@ -13,7 +13,7 @@ import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from
  * @litElement
  * @demo demo/index.html
  */
-export default class FirebaseLoginbutton extends LitElement {
+export class FirebaseLoginbutton extends LitElement {
   static get is() {
     return 'firebase-loginbutton';
   }
