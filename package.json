@@ -1,7 +1,7 @@
 {
   "name": "firebase-loginbutton",
   "description": "Lit-Element webcomponent firebase-loginbutton",
-  "version": "3.2.0",
+  "version": "4.0.0",
   "main": "firebase-loginbutton.js",
   "repository": {
     "type": "git",
