@@ -108,7 +108,7 @@ export class FirebaseLoginbutton extends LitElement {
     this.hideIfLogin = false;
     this.name = 'NAME'; //TODO: generate a random Name to identify the component from others.
     this.dataUser = null;
-    this.zone = null;
+    this.zone = null; // OPTIONAL. Old projects dont have a zone
 
     this.signedIn = false;
     this.signedOut = false;

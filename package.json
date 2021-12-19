@@ -1,7 +1,7 @@
 {
-  "name": "firebase-loginbutton",
+  "name": "@firebase-utils/firebase-loginbutton",
   "description": "Lit-Element webcomponent firebase-loginbutton",
-  "version": "4.0.1",
+  "version": "1.0.0",
   "main": "firebase-loginbutton.js",
   "module": "radar-chart.js",
   "type": "module",
