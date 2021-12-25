@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit';
 
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { getStorage } from 'firebase/storage';
 import { firebaseLoginbuttonStyles } from './firebase-loginbutton-style.js';
 
 /**
