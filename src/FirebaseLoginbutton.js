@@ -1,8 +1,9 @@
 import { LitElement, html } from 'lit';
-import { firebaseLoginbuttonStyles } from './firebase-loginbutton-style.js';
 
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { firebaseLoginbuttonStyles } from './firebase-loginbutton-style.js';
 
 /**
  * `firebase-loginbutton`
@@ -20,6 +21,10 @@ export class FirebaseLoginbutton extends LitElement {
 
   static get properties() {
     return {
+      id: {
+        type: String,
+        reflect: true
+      },
       appName:{
         type: String,
       },
@@ -106,7 +111,7 @@ export class FirebaseLoginbutton extends LitElement {
     this.showIcon = false;
     this.showPhoto = false;
     this.hideIfLogin = false;
-    this.name = 'NAME'; //TODO: generate a random Name to identify the component from others.
+    this.name = 'NAME'; // TODO: generate a random Name to identify the component from others.
     this.dataUser = null;
     this.zone = null; // OPTIONAL. Old projects dont have a zone
 
@@ -116,9 +121,6 @@ export class FirebaseLoginbutton extends LitElement {
     this.isMobile = navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i) !== null;
 
     this._dispatchSigninEvent = this._dispatchSigninEvent.bind(this);
-
-    this.appName = `firebase-loginbutton-${this.id}`;
-    // document.addEventListener
   }
 
   _dispatchSigninEvent() {
@@ -127,38 +129,32 @@ export class FirebaseLoginbutton extends LitElement {
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    document.addEventListener('firebase-are-you-logged', this._dispatchSigninEvent);
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    document.removeEventListener('firebase-are-you-logged', this._dispatchSigninEvent);
-  }
-
   firstUpdated() {
+    this.id = this.id || `firebase-loginbutton-${  Math.random().toString(36).substring(2, 9)}`;
+    this.appName = `firebase-loginbutton-${this.id}`;
     this.firebaseInitialize();
   }
 
   attributeChangedCallback(name, oldval, newval) {
-     super.attributeChangedCallback(name, oldval, newval);
-     this.hasParams = !!(this.apiKey && this.domain && this.messagingSenderId && this.appId);
+    if (super.attributeChangedCallback) {
+      super.attributeChangedCallback(name, oldval, newval);
+    }
+    this.hasParams = !!(this.apiKey && this.domain && this.messagingSenderId && this.appId);
   }
 
   async firebaseInitialize() {
     if (!this.firebaseApp) {
       const firebaseConfig = {
         apiKey: this.apiKey,
-        authDomain: this.domain + '.firebaseapp.com',
+        authDomain: `${this.domain  }.firebaseapp.com`,
         databaseURL: (this.zone === null) ? `https://${this.domain}.firebaseio.com` : `https://${this.domain}-default-rtdb.${this.zone}.firebasedatabase.app`,
         projectId: this.domain,
-        storageBucket: this.domain + '.appspot.com',
+        storageBucket: `${this.domain  }.appspot.com`,
         messagingSenderId: this.messagingSenderId,
         appId: this.appId
       };
       this.firebaseApp = await initializeApp(firebaseConfig, this.appName);
-      this.firebaseStorage = firebase.storage();
+      this.firebaseStorage = getStorage();
       this.authStateChangedListener();
     } else {
       console.warn('firebaseApp not found');
@@ -168,17 +164,15 @@ export class FirebaseLoginbutton extends LitElement {
   _checkEventsLogin(user) {
     if (user) {
       if (!this.signedIn) {
-        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: user, name: this.name, id: this.id, firebaseApp: this.firebaseApp }}));
+        document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user, name: this.name, id: this.id, firebaseApp: this.firebaseApp }}));
         this.signedIn = true;
         this.signedOut = false;
       }
-    } else {
-      if (!this.signedOut) {
+    } else if (!this.signedOut) {
         document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {user: this.email, name: this.name, id: this.id, firebaseApp: this.firebaseApp }}));
         this.signedIn = false;
         this.signedOut = true;
       }
-    }
   }
 
   _getUserInfo(user) {
@@ -293,5 +287,3 @@ export class FirebaseLoginbutton extends LitElement {
     `;
   }
 }
-
-window.customElements.define(FirebaseLoginbutton.is, FirebaseLoginbutton);

@@ -186,22 +186,22 @@
       <div id="data" class="info"></div>
 
       <script>
-        document.addEventListener("firebase-signin", logado, false);
-        document.addEventListener("firebase-signout", deslogado, false);
-
         function logado(payload) {
-          document.querySelector("#data").innerHTML =
-            "Está logado (recogido evento firebase-signin)</p><p>" +
-            payload.detail.user.displayName;
-          console.log("logged");
+          document.querySelector(
+            '#data'
+          ).innerHTML = `Está logado (recogido evento firebase-signin)</p><p>${payload.detail.user.displayName}`;
+          console.log('logged');
         }
 
         function deslogado(payload) {
-          document.querySelector("#data").innerHTML =
-            "Está DESlogado (recogido evento firebase-signout)</p><p>" +
-            payload.detail.user;
-          console.log("logout");
+          document.querySelector(
+            '#data'
+          ).innerHTML = `Está DESlogado (recogido evento firebase-signout)</p><p>${payload.detail.user}`;
+          console.log('logout');
         }
+
+        document.addEventListener('firebase-signin', logado, false);
+        document.addEventListener('firebase-signout', deslogado, false);
       </script>
     </div>
   </body>
