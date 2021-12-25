@@ -154,7 +154,7 @@ export class FirebaseLoginbutton extends LitElement {
         appId: this.appId
       };
       this.firebaseApp = await initializeApp(firebaseConfig, this.appName);
-      this.firebaseStorage = getStorage();
+      this.firebaseStorage = getStorage(this.firebaseApp);
       this.authStateChangedListener();
     } else {
       console.warn('firebaseApp not found');
