@@ -118,12 +118,12 @@ export class FirebaseLoginbutton extends LitElement {
     this._dispatchSigninEvent = this._dispatchSigninEvent.bind(this);
 
     this.appName = `firebase-loginbutton-${this.id}`;
-    document.addEventListener
+    // document.addEventListener
   }
 
   _dispatchSigninEvent() {
     if (this.signedIn) {
-      document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, firebaseApp: this.firebaseApp, name: this.appName, id: this.id}}));
+      document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, firebaseApp: this.firebaseApp, firebaseStorage: this.firebaseStorage, name: this.appName, id: this.id}}));
     }
   }
 
@@ -158,6 +158,7 @@ export class FirebaseLoginbutton extends LitElement {
         appId: this.appId
       };
       this.firebaseApp = await initializeApp(firebaseConfig, this.appName);
+      this.firebaseStorage = firebase.storage();
       this.authStateChangedListener();
     } else {
       console.warn('firebaseApp not found');
