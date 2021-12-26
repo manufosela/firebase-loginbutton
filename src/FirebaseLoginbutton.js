@@ -129,11 +129,18 @@ export class FirebaseLoginbutton extends LitElement {
     }
   }
 
+  _checkIfCallMe(event) {
+    const { detail } = event;
+    if (detail.id === this.id) {
+      this._dispatchSigninEvent();
+    }
+  }
+
   firstUpdated() {
     this.id = this.id || `firebase-loginbutton-${  Math.random().toString(36).substring(2, 9)}`;
     this.appName = `firebase-loginbutton-${this.id}`;
     this.firebaseInitialize();
-    document.addEventListener('are-it-logged-into-firebase', this._dispatchSigninEvent);
+    document.addEventListener('are-it-logged-into-firebase', this._checkIfCallMe.bind(this));
   }
 
   attributeChangedCallback(name, oldval, newval) {
