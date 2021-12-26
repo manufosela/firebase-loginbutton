@@ -172,6 +172,7 @@ export class FirebaseLoginbutton extends LitElement {
   _checkEventsLogin(user) {
     if (user) {
       if (!this.signedIn) {
+        this.dataUser = user;
         this._dispatchSigninEvent();
         this.signedIn = true;
         this.signedOut = false;
