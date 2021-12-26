@@ -133,6 +133,7 @@ export class FirebaseLoginbutton extends LitElement {
     this.id = this.id || `firebase-loginbutton-${  Math.random().toString(36).substring(2, 9)}`;
     this.appName = `firebase-loginbutton-${this.id}`;
     this.firebaseInitialize();
+    document.addEventListener('are-it-logged-into-firebase', this._dispatchSigninEvent);
   }
 
   attributeChangedCallback(name, oldval, newval) {
