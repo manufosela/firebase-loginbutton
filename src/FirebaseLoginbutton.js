@@ -105,7 +105,6 @@ export class FirebaseLoginbutton extends LitElement {
     if (typeof initializeApp === 'undefined') {
       throw new Error('To work firebase-loginbutton: Please, import firebase-app and firebase-auth first');
     }
-
     this.showEmail = false;
     this.showUser = false;
     this.showIcon = false;
@@ -141,6 +140,15 @@ export class FirebaseLoginbutton extends LitElement {
     this.appName = `firebase-loginbutton-${this.id}`;
     this.firebaseInitialize();
     document.addEventListener('are-it-logged-into-firebase', this._checkIfCallMe.bind(this));
+
+    const componentCreatedEvent = new CustomEvent('wc-ready', {
+      detail: {
+        id: this.id,
+        componentName: this.tagName,
+        component: this,
+      },
+    });
+    document.dispatchEvent(componentCreatedEvent);
   }
 
   attributeChangedCallback(name, oldval, newval) {
