@@ -3,28 +3,36 @@ import { css } from 'lit';
 export const firebaseLoginbuttonStyles = css`
       :host, :root{
         display: block;
-        --btn-primary-color: rgb(204, 204, 204);
-        --btn-background-color: rgb(255, 57, 0);
-        --btn-secondary-color: black;
-        --btn-text-user-color: #FF0;
-        --icon-bg-color-singin: #0A0;
-        --icon-bg-color-singout: #A00;
       }
       svg { border:0; border-radius: 50%; padding:5px; padding-bottom: 6px; }
-      .signin { background: var(--icon-bg-color-singin);}
-      .signout { background: var(--icon-bg-color-singout); }
+      .signin { background: var(--firebase-loginbutton_icon-bg-color-singin, lime);}
+      .signout { background: var(--firebase-loginbutton_icon-bg-color-singout), #a00; }
       img { margin:0 5px; }
+
+      .border-logged-in {
+        border: 2px outset var(--firebase-loginbutton_btn-terciary-color, rgba(0, 0, 0, 0.25));
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+      }
+      .border-logged-out {
+        border: 0;
+      }
+
       .wrapper__login--button {
-        display:flex;
+        display: flex;
+        flex-direction: column;
         font-size: 1.2rem;
-        background-color: var(--btn-background-color);
-        color: var(--btn-primary-color);
+        background-color: var(--firebase-loginbutton_btn-background-color, #fff);
+        color: var(--firebase-loginbutton_btn-primary-color, #ff7900);
         cursor: pointer;
-        border-radius: 10px;
-        padding: 10px 20px;
-        flex-flow: row wrap;
-        justify-content: space-around;
-        max-width: 200px;
+        border-radius: 1.5rem;
+        padding: 0.5rem;
+        justify-content: center;
+        width: 12rem;
+        justify-items: center;
+        font-weight: 500;
+      }
+      .wrapper__login--button div {
+        width:100%;
       }
       .wrapper__login--button-mobile {
         cursor: pointer;
@@ -35,24 +43,36 @@ export const firebaseLoginbuttonStyles = css`
         justify-content: space-around;
       }
       .button-text {
-        padding-top: 5px;
+        background-color: var(--firebase-loginbutton_btn-primary-color, #ff7900);
+        color: var(--firebase-loginbutton_btn-background-color, #fff);
+        padding: 0.6rem 0rem;
+        border-radius: 100px;
+        display: inline-block;
       }
       .button-icon {
         padding-top: 0;
         margin-left: 5px;
       }
+      .button-photo {
+        width: 100%;
+      }
       .button-photo img {
-        border: 0;
-        width: 25px;
-        padding-top: 5px;
+        width: 8rem;
+        height: 8rem;
+        border-radius: 8rem;
+        border: 1px solid var(--firebase-loginbutton_btn-primary-color, #ff7900);
       }
       .button-user {
-        color: var(--btn-text-user-color);
-        font-size: 0.8rem;
+        font-size: 1rem;
+        color: var(--firebase-loginbutton_btn-text-user-color, #FF7900);
+        margin:10px 0px 3px;
+        font-weight: 500;
       }
       .button-email {
-        font-weight: bold;
         font-size: 0.8rem;
+        color: var(--firebase-loginbutton_btn-terciary-color, rgba(0, 0, 0, 0.25));
+        margin-top: 0;
+        margin-bottom: 1rem;
       }
       .hide {
         display:none;

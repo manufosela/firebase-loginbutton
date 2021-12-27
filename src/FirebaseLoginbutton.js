@@ -205,7 +205,7 @@ export class FirebaseLoginbutton extends LitElement {
   _drawButtonLogin() {
     const sR = this.shadowRoot;
     if (!this.isMobile) {
-      sR.querySelector('.button-photo').innerHTML = (this.showPhoto) ? `<img src="${this.photo}" />` : '';
+      sR.querySelector('.button-photo').innerHTML = (this.showPhoto) ? `<img src="${this.photo}" alt="${this.displayName} photo"/>` : '';
       sR.querySelector('.button-text').innerText = 'Sign out';
       sR.querySelector('.button-icon').innerHTML = (this.showIcon) ? `${this.iconLogout}` : '';
       sR.querySelector('.button-user').textContent = (this.showUser) ? `${this.displayName}` : '';
@@ -227,6 +227,8 @@ export class FirebaseLoginbutton extends LitElement {
       sR.querySelector('.button-icon svg').classList.remove('signin');
       sR.querySelector('.button-icon svg').classList.add('signout');
     }
+    this.shadowRoot.querySelector('#quickstart-sign-in').classList.add('border-logged-in');
+    this.shadowRoot.querySelector('#quickstart-sign-in').classList.remove('border-logged-out');
   }
 
   _drawButtonLogout() {
@@ -252,6 +254,8 @@ export class FirebaseLoginbutton extends LitElement {
     this.displayName = undefined;
     this.email = undefined;
     this.uid = undefined;
+    this.shadowRoot.querySelector('#quickstart-sign-in').classList.add('border-logged-out');
+    this.shadowRoot.querySelector('#quickstart-sign-in').classList.remove('border-logged-in');
   }
 
   authStateChangedListener() {
@@ -280,8 +284,11 @@ export class FirebaseLoginbutton extends LitElement {
       // The signed-in user info.
       this.dataUser = result.user;
       console.log(`Logged user ${this.dataUser.displayName}`);
+      this.shadowRoot.querySelector('#quickstart-sign-in').classList.add('border-logged-in');
+
       this._dispatchSigninEvent();
     } else {
+      this.shadowRoot.querySelector('#quickstart-sign-in').classList.remove('border-logged-in');
       this.auth.signOut();
     }
   }
@@ -293,10 +300,10 @@ export class FirebaseLoginbutton extends LitElement {
         <div id="user" class="wrapper__user"></div>
         <button disabled id="quickstart-sign-in" @click="${this.toggleSignIn}" title="${this.infobtn}">
           <div class="button-photo"></div>
-          <div class="button-text"></div>
           <div class="button-icon"></div>
           <div class="button-user"></div>
           <div class="button-email"></div>
+          <div class="button-text"></div>
         </button>
       ` : html`
         <p>Faltan parámetros en la definición del componente</p>
