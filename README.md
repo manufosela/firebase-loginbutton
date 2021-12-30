@@ -12,11 +12,32 @@ npm i firebase-loginbutton
 
 ```html
 <script type="module">
-  import 'firebase-loginbutton/firebase-loginbutton.js';
+  import '@firebase-utils/firebase-loginbutton';
 </script>
 
-<firebase-loginbutton></firebase-loginbutton>
+<firebase-loginbutton
+  id="myLoginButton"
+  api-key="MI_API_KEY_FIREBASE_PROJECT"
+  domain="DOMAIN_FIREBASE_PROJECT"
+  zone="ZONE_FIREBASE_PROJECT"
+  messaging-sender-id="SENDER_ID_FIREBASE_PROJECT"
+  app-id="APP_ID_FIREBASE_PROJECT"
+  show-email
+  show-user
+  show-photo
+></firebase-loginbutton>
 ```
+
+## Styling
+
+- **--firebase-loginbutton_btn-primary-color**. Default #ff7900
+- **--firebase-loginbutton_btn-secondary-color**. Default rgba(0, 0, 0, 0.25)
+- **--firebase-loginbutton_icon-bg-color-singin**. Default lime
+- **--firebase-loginbutton_icon-bg-color-singout**. Default #a00
+- **--firebase-loginbutton_btn-background-color**. Default #fff
+- **--firebase-loginbutton_btn-text-user-color**. Default #FF7900
+- **--firebase-loginbutton_btn-photo-size-container**. Default 12rem
+- **--firebase-loginbutton_btn-photo-size**. Default 10rem
 
 ## Linting and formatting
 
@@ -59,7 +80,6 @@ To build a production version of Storybook, run
 ```bash
 npm run storybook:build
 ```
-
 
 ## Tooling configs
 
