@@ -32,7 +32,7 @@ export const firebaseLoginbuttonStyles = css`
         font-weight: 500;
       }
       .wrapper__login--button div {
-        width:100%;
+        width: var(--firebase-loginbutton_btn-photo-size, 10rem);
       }
       .wrapper__login--button-mobile {
         cursor: pointer;
