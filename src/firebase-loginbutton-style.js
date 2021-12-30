@@ -7,7 +7,6 @@ export const firebaseLoginbuttonStyles = css`
       svg { border:0; border-radius: 50%; padding:5px; padding-bottom: 6px; }
       .signin { background: var(--firebase-loginbutton_icon-bg-color-singin, lime);}
       .signout { background: var(--firebase-loginbutton_icon-bg-color-singout), #a00; }
-      img { margin:0 5px; }
 
       .border-logged-in {
         border: 2px outset var(--firebase-loginbutton_btn-terciary-color, rgba(0, 0, 0, 0.25));
@@ -48,6 +47,8 @@ export const firebaseLoginbuttonStyles = css`
         padding: 0.6rem 0rem;
         border-radius: 100px;
         display: inline-block;
+        text-align: center;
+        margin: 0 auto;
       }
       .button-icon {
         padding-top: 0;
