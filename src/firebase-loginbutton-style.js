@@ -27,7 +27,7 @@ export const firebaseLoginbuttonStyles = css`
         border-radius: 1.5rem;
         padding: 0.5rem;
         justify-content: center;
-        width: 12rem;
+        width: var(--firebase-loginbutton_btn-photo-size-container, 12rem);
         justify-items: center;
         font-weight: 500;
       }
@@ -54,12 +54,12 @@ export const firebaseLoginbuttonStyles = css`
         margin-left: 5px;
       }
       .button-photo {
-        width: 100%;
+        width: var(--firebase-loginbutton_btn-photo-size, 10rem);
       }
       .button-photo img {
-        width: 8rem;
-        height: 8rem;
-        border-radius: 8rem;
+        width: inherit;
+        height: inherit;
+        border-radius: 50%;
         border: 1px solid var(--firebase-loginbutton_btn-primary-color, #ff7900);
       }
       .button-user {
@@ -70,7 +70,7 @@ export const firebaseLoginbuttonStyles = css`
       }
       .button-email {
         font-size: 0.8rem;
-        color: var(--firebase-loginbutton_btn-terciary-color, rgba(0, 0, 0, 0.25));
+        color: var(--firebase-loginbutton_btn-secondary-color, rgba(0, 0, 0, 0.25));
         margin-top: 0;
         margin-bottom: 1rem;
       }
