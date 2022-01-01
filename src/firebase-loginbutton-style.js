@@ -45,7 +45,7 @@ export const firebaseLoginbuttonStyles = css`
       }
       .button-text {
         background-color: var(--firebase-loginbutton_btn-primary-color, #ff7900);
-        color: var(--firebase-loginbutton_btn-background-color, #fff);
+        color: var(--firebase-loginbutton_btn-text-color, #fff);
         padding: 0.6rem 0rem;
         border-radius: 100px;
         display: inline-block;

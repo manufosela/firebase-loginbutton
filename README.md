@@ -32,6 +32,7 @@ npm i firebase-loginbutton
 
 - **--firebase-loginbutton_btn-primary-color**. Default #ff7900
 - **--firebase-loginbutton_btn-secondary-color**. Default rgba(0, 0, 0, 0.25)
+- **--firebase-loginbutton_btn-text-color**. Default #fff
 - **--firebase-loginbutton_icon-bg-color-singin**. Default lime
 - **--firebase-loginbutton_icon-bg-color-singout**. Default #a00
 - **--firebase-loginbutton_btn-background-color**. Default #fff
