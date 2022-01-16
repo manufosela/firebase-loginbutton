@@ -28,6 +28,42 @@ npm i firebase-loginbutton
 ></firebase-loginbutton>
 ```
 
+## Events
+
+### Dispatching events
+
+- **wc-ready**, dispatched when the webcomponent is ready after first render.
+
+  ```json
+    detail: {
+      id: this.id,
+      componentName: this.tagName,
+      component: this,
+    }
+  ```
+
+- **firebase-signin**: dispatched when the user is firebase logged in
+
+  ```json
+    detail: {
+      user: this.dataUser,
+      firebaseApp: this.firebaseApp,
+      firebaseStorage: this.firebaseStorage,
+      name: this.appName,
+      id: this.id
+    }
+  ```
+
+- **firebase-signout**: dispatched when the user is firebase logged out
+
+  ```json
+    detail: {
+      user: this.email,
+      name: this.name,
+      id: this.id
+    }
+  ```
+
 ## Styling
 
 - **--firebase-loginbutton_btn-primary-color**. Default #ff7900
