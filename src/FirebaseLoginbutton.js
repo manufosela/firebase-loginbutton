@@ -123,7 +123,7 @@ export class FirebaseLoginbutton extends LitElement {
 
   connectedCallback() {
     if (super.connectedCallback) super.connectedCallback();
-    this.id = `firebase-autoform-${  Math.random().toString(36).substring(2, 9)}`;
+    this.id = this.id || `firebase-loginbutton-${  Math.random().toString(36).substring(2, 9)}`;
   }
 
 
