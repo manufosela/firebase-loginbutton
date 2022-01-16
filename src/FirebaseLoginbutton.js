@@ -110,7 +110,6 @@ export class FirebaseLoginbutton extends LitElement {
     this.showIcon = false;
     this.showPhoto = false;
     this.hideIfLogin = false;
-    this.name = 'NAME'; // TODO: generate a random Name to identify the component from others.
     this.dataUser = null;
     this.zone = null; // OPTIONAL. Old projects dont have a zone
 
@@ -121,6 +120,12 @@ export class FirebaseLoginbutton extends LitElement {
 
     this._dispatchSigninEvent = this._dispatchSigninEvent.bind(this);
   }
+
+  connectedCallback() {
+    if (super.connectedCallback) super.connectedCallback();
+    this.id = `firebase-autoform-${  Math.random().toString(36).substring(2, 9)}`;
+  }
+
 
   _dispatchSigninEvent() {
     if (this.signedIn) {
@@ -189,13 +194,12 @@ export class FirebaseLoginbutton extends LitElement {
     if (user) {
       if (!this.signedIn) {
         this.dataUser = user;
-        // document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user, name: this.name, id: this.id, firebaseApp: this.firebaseApp }}));
         document.dispatchEvent(new CustomEvent('firebase-signin', {detail: {user: this.dataUser, firebaseApp: this.firebaseApp, firebaseStorage: this.firebaseStorage, name: this.appName, id: this.id}}));
         this.signedIn = true;
         this.signedOut = false;
       }
     } else if (!this.signedOut) {
-        document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {user: this.email, name: this.name, id: this.id, firebaseApp: this.firebaseApp }}));
+        document.dispatchEvent(new CustomEvent('firebase-signout', {detail: {id: this.id}}));
         this.signedIn = false;
         this.signedOut = true;
       }
