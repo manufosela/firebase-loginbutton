@@ -3,8 +3,12 @@ import { LitElement, html } from 'lit';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
-  onAuthStateChanged,
+  GithubAuthProvider,
   GoogleAuthProvider,
+  FacebookAuthProvider,
+  TwitterAuthProvider,
+  MicrosoftAuthProvider,
+  onAuthStateChanged,
   signInWithPopup,
 } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
@@ -103,6 +107,12 @@ export class FirebaseLoginbutton extends LitElement {
       firebaseApp: {
         type: Object,
       },
+      provider: {
+        type: String,
+      },
+      providerObj: {
+        type: Object,
+      },
     };
   }
 
@@ -140,6 +150,17 @@ export class FirebaseLoginbutton extends LitElement {
 
   connectedCallback() {
     if (super.connectedCallback) super.connectedCallback();
+    if (this.provider === 'github') {
+      this.providerObj = new GithubAuthProvider();
+    } else if (this.provider === 'facebook') {
+      this.providerObj = new FacebookAuthProvider();
+    } else if (this.provider === 'twitter') {
+      this.providerObj = new TwitterAuthProvider();
+    } else if (this.provider === 'microsoft') {
+      this.providerObj = new MicrosoftAuthProvider();
+    } else {
+      this.providerObj = new GoogleAuthProvider();
+    }
     this.id =
       this.id ||
       `firebase-loginbutton-${Math.random().toString(36).substring(2, 9)}`;
@@ -375,10 +396,9 @@ export class FirebaseLoginbutton extends LitElement {
 
   async toggleSignIn() {
     if (!this.auth.currentUser) {
-      const provider = new GoogleAuthProvider();
-      provider.addScope('profile');
-      provider.addScope('email');
-      const result = await signInWithPopup(this.auth, provider);
+      this.providerObj.addScope('profile');
+      this.providerObj.addScope('email');
+      const result = await signInWithPopup(this.auth, this.providerObj);
 
       // The signed-in user info.
       this.dataUser = result.user;
