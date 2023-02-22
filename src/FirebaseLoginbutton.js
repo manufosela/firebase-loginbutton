@@ -7,7 +7,7 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   TwitterAuthProvider,
-  MicrosoftAuthProvider,
+  OAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
 } from 'firebase/auth';
@@ -156,8 +156,8 @@ export class FirebaseLoginbutton extends LitElement {
       this.providerObj = new FacebookAuthProvider();
     } else if (this.provider === 'twitter') {
       this.providerObj = new TwitterAuthProvider();
-    } else if (this.provider === 'microsoft') {
-      this.providerObj = new MicrosoftAuthProvider();
+    } else if (this.provider === 'micorsoft') {
+      this.providerObj = new OAuthProvider('microsoft.com');
     } else {
       this.providerObj = new GoogleAuthProvider();
     }
