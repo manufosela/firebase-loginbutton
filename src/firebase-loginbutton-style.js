@@ -4,6 +4,7 @@ export const firebaseLoginbuttonStyles = css`
   :host,
   :root {
     display: block;
+    /*
     --firebase-loginbutton_font-size: 1.2rem;
     --firebase-loginbutton_margin: 0;
     --firebase-loginbutton_padding: 0.5rem;
@@ -15,6 +16,7 @@ export const firebaseLoginbuttonStyles = css`
     --firebase-loginbutton_btn-text-color: #fff;
     --firebase-loginbutton_icon-bg-color-singin: lime;
     --firebase-loginbutton_icon-bg-color-singout: #a00;
+    */
   }
   svg {
     border: 0;
