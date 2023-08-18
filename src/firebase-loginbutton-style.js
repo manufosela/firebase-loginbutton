@@ -130,6 +130,7 @@ export const firebaseLoginbuttonStyles = css`
     }
 
     .wrapper__login--button-mobile {
+      height: var(--firebase-loginbutton_mobile-button-height);
     }
     .border-logged-in {
       border: 0;
