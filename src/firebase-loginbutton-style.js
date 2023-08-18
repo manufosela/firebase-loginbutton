@@ -17,6 +17,10 @@ export const firebaseLoginbuttonStyles = css`
     --firebase-loginbutton_icon-bg-color-singin: lime;
     --firebase-loginbutton_icon-bg-color-singout: #a00;
     */
+    --firebase-loginbutton_mobile-icon-color__logged: #00ff00;
+    --firebase-loginbutton_mobile-icon-bg-color__logged: #0000ff;
+    --firebase-loginbutton_mobile-icon-color__not-logged: #ff7700;
+    --firebase-loginbutton_mobile-icon-bg-color__not-logged: #aa0000;
   }
   svg {
     border: 0;
@@ -122,6 +126,13 @@ export const firebaseLoginbuttonStyles = css`
   @media screen and (max-width: 480px) {
     .button-photo img {
       display: none;
+    }
+
+    .wrapper__login--button-mobile {
+    }
+    .border-logged-in {
+      border: 0;
+      box-shadow: none;
     }
   }
 `;

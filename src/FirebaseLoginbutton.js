@@ -380,9 +380,34 @@ export class FirebaseLoginbutton extends LitElement {
   authStateChangedListener() {
     this.auth = getAuth(this.firebaseApp);
     onAuthStateChanged(this.auth, user => {
+      const computedStyle = getComputedStyle(this);
+      const color = user
+        ? computedStyle.getPropertyValue(
+            '--firebase-loginbutton_mobile-icon-color__logged'
+          )
+        : computedStyle.getPropertyValue(
+            '--firebase-loginbutton_mobile-icon-color__not-logged'
+          );
+      const bgColor = user
+        ? computedStyle.getPropertyValue(
+            '--firebase-loginbutton_mobile-icon-bg-color__logged'
+          )
+        : computedStyle.getPropertyValue(
+            '--firebase-loginbutton_mobile-icon-bg-color__not-logged'
+          );
       this.dataUser = user;
-      this.iconLogout =
-        '<svg id="logout-icon" width="23" height="21" class="signout"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>';
+      this.iconLogout = /* HTML */ ` <svg
+        id="logout-icon"
+        width="24"
+        height="24"
+        class="signout"
+        fill="${color}"
+        style="background-color:${bgColor}"
+      >
+        <path
+          d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"
+        />
+      </svg>`;
       this._getUserInfo(user);
       this.shadowRoot.querySelector('#quickstart-sign-in').disabled = false;
       if (user) {
