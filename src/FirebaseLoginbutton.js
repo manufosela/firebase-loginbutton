@@ -293,7 +293,11 @@ export class FirebaseLoginbutton extends LitElement {
       sR.querySelector('.button-photo').innerHTML = this.showPhoto
         ? `<img src="${this.photo}" alt="${this.displayName} photo"/>`
         : '';
-      sR.querySelector('.button-text').innerText = `Sign out${env}`;
+      if (!this.showIcon) {
+        sR.querySelector('.button-text').innerText = `Sign out${env}`;
+      } else {
+        sR.querySelector('.button-text').classList.add('hide');
+      }
       sR.querySelector('.button-icon').innerHTML = this.showIcon
         ? `${this.iconLogout}`
         : '';
