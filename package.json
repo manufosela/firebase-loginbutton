@@ -1,7 +1,7 @@
 {
   "name": "@firebase-utils/firebase-loginbutton",
   "description": "Lit-Element webcomponent firebase-loginbutton",
-  "version": "1.7.6",
+  "version": "1.7.7",
   "main": "firebase-loginbutton.js",
   "module": "firebase-loginbutton.js",
   "type": "module",
