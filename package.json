@@ -1,7 +1,7 @@
 {
   "name": "@firebase-utils/firebase-loginbutton",
   "description": "Lit-Element webcomponent firebase-loginbutton",
-  "version": "1.7.8",
+  "version": "1.7.9",
   "main": "firebase-loginbutton.js",
   "module": "firebase-loginbutton.js",
   "type": "module",
@@ -30,8 +30,8 @@
     "storybook:build": "npm run analyze -- --exclude dist && build-storybook"
   },
   "dependencies": {
-    "firebase": "^9.15.0",
-    "lit": "^2.5.0"
+    "firebase": "^10.5.0",
+    "lit": "^3.0.0"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.4.17",
