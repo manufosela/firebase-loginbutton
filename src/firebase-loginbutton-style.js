@@ -4,26 +4,60 @@ export const firebaseLoginbuttonStyles = css`
   :host,
   :root {
     display: block;
-    --firebase-loginbutton_font-size: 1.2rem;
-    --firebase-loginbutton_margin: 0;
-    --firebase-loginbutton_padding: 0.5rem;
-    --firebase-loginbutton_btn-photo-size-container: 12rem;
-    --firebase-loginbutton_btn-photo-size: 10rem;
-    --firebase-loginbutton_btn-background-color: #fff;
-    --firebase-loginbutton_btn-primary-color: #ff7900;
-    --firebase-loginbutton_btn-terciary-color: rgba(0, 0, 0, 0.25);
-    --firebase-loginbutton_btn-text-color: #fff;
-    --firebase-loginbutton_icon-bg-color-singin: lime;
-    --firebase-loginbutton_icon-bg-color-singout: #a00;
-    --firebase-loginbutton_mobile-icon-color__logged: #00ff00;
-    --firebase-loginbutton_mobile-icon-bg-color__logged: #0000ff;
-    --firebase-loginbutton_mobile-icon-color__not-logged: #ff7700;
-    --firebase-loginbutton_mobile-icon-bg-color__not-logged: #aa0000;
-    --firebase-loginbutton_mobile-button-height: 2.5rem;
-    --firebase-loginbutton_border-logged: 2px outset
-      var(--firebase-loginbutton_btn-terciary-color, rgba(0, 0, 0, 0.25));
-    --firebase-loginbutton_border-boxshadow-logged: 0px 4px 4px 0px
-      rgba(0, 0, 0, 0.25);
+    --_firebase-loginbutton_font-size: var(
+      --firebase-loginbutton_font-size: 1.2rem
+    );
+    --_firebase-loginbutton_margin: var(--firebase-loginbutton_margin: 0);
+    --_firebase-loginbutton_padding: var(
+      --firebase-loginbutton_padding: 0.5rem
+    );
+    --_firebase-loginbutton_btn-photo-size-container: var(
+      --firebase-loginbutton_btn-photo-size-container: 12rem
+    );
+    --_firebase-loginbutton_btn-photo-size: var(
+      --firebase-loginbutton_btn-photo-size: 10rem
+    );
+    --_firebase-loginbutton_btn-background-color: var(
+      --firebase-loginbutton_btn-background-color: #fff
+    );
+    --_firebase-loginbutton_btn-primary-color: var(
+      --firebase-loginbutton_btn-primary-color: #ff7900
+    );
+    --_firebase-loginbutton_btn-terciary-color: var(
+      --firebase-loginbutton_btn-terciary-color: rgba(0, 0, 0, 0.25)
+    );
+    --_firebase-loginbutton_btn-text-color: var(
+      --firebase-loginbutton_btn-text-color: #fff
+    );
+    --_firebase-loginbutton_icon-bg-color-singin: var(
+      --firebase-loginbutton_icon-bg-color-singin: lime
+    );
+    --_firebase-loginbutton_icon-bg-color-singout: var(
+      --firebase-loginbutton_icon-bg-color-singout: #a00
+    );
+    --_firebase-loginbutton_mobile-icon-color__logged: var(
+      --firebase-loginbutton_mobile-icon-color__logged: #00ff00
+    );
+    --_firebase-loginbutton_mobile-icon-bg-color__logged: var(
+      --firebase-loginbutton_mobile-icon-bg-color__logged: #0000ff
+    );
+    --_firebase-loginbutton_mobile-icon-color__not-logged: var(
+      --firebase-loginbutton_mobile-icon-color__not-logged: #ff7700
+    );
+    --_firebase-loginbutton_mobile-icon-bg-color__not-logged: var(
+      --firebase-loginbutton_mobile-icon-bg-color__not-logged: #aa0000
+    );
+    --_firebase-loginbutton_mobile-button-height: var(
+      --firebase-loginbutton_mobile-button-height: 2.5rem
+    );
+    --_firebase-loginbutton_border-logged: var(
+      --firebase-loginbutton_border-logged: 2px outset
+        var(--firebase-loginbutton_btn-terciary-color, rgba(0, 0, 0, 0.25))
+    );
+    --_firebase-loginbutton_border-boxshadow-logged: var(
+      --firebase-loginbutton_border-boxshadow-logged: 0px 4px 4px 0px
+        rgba(0, 0, 0, 0.25)
+    );
   }
   svg {
     border: 0;
@@ -32,15 +66,15 @@ export const firebaseLoginbuttonStyles = css`
     padding-bottom: 6px;
   }
   .signin {
-    background: var(--firebase-loginbutton_icon-bg-color-singin, lime);
+    background: var(--_firebase-loginbutton_icon-bg-color-singin, lime);
   }
   .signout {
-    background: var(--firebase-loginbutton_icon-bg-color-singout), #a00;
+    background: var(--_firebase-loginbutton_icon-bg-color-singout), #a00;
   }
 
   .border-logged-in {
-    border: var(--firebase-loginbutton_border-logged);
-    box-shadow: var(--firebase-loginbutton_border-boxshadow-logged);
+    border: var(--_firebase-loginbutton_border-logged);
+    box-shadow: var(--_firebase-loginbutton_border-boxshadow-logged);
   }
   .border-logged-out {
     border: 0;
@@ -49,20 +83,20 @@ export const firebaseLoginbuttonStyles = css`
   .wrapper__login--button {
     display: flex;
     flex-direction: column;
-    font-size: var(--firebase-loginbutton_font-size, 1.2rem);
-    background-color: var(--firebase-loginbutton_btn-background-color, #fff);
-    color: var(--firebase-loginbutton_btn-primary-color, #ff7900);
+    font-size: var(--_firebase-loginbutton_font-size, 1.2rem);
+    background-color: var(--_firebase-loginbutton_btn-background-color, #fff);
+    color: var(--_firebase-loginbutton_btn-primary-color, #ff7900);
     cursor: pointer;
     border-radius: 1.5rem;
-    margin: var(--firebase-loginbutton_margin, 0);
-    padding: var(--firebase-loginbutton_padding, 0.5rem);
+    margin: var(--_firebase-loginbutton_margin, 0);
+    padding: var(--_firebase-loginbutton_padding, 0.5rem);
     justify-content: center;
-    width: var(--firebase-loginbutton_btn-photo-size-container, 12rem);
+    width: var(--_firebase-loginbutton_btn-photo-size-container, 12rem);
     justify-items: center;
     font-weight: 500;
   }
   .wrapper__login--button div {
-    width: var(--firebase-loginbutton_btn-photo-size, 10rem);
+    width: var(--_firebase-loginbutton_btn-photo-size, 10rem);
     text-align: center;
     margin: 0 auto;
   }
@@ -75,8 +109,8 @@ export const firebaseLoginbuttonStyles = css`
     justify-content: space-around;
   }
   .button-text {
-    background-color: var(--firebase-loginbutton_btn-primary-color, #ff7900);
-    color: var(--firebase-loginbutton_btn-text-color, #fff);
+    background-color: var(--_firebase-loginbutton_btn-primary-color, #ff7900);
+    color: var(--_firebase-loginbutton_btn-text-color, #fff);
     padding: 0.6rem 0rem;
     border-radius: 100px;
     display: inline-block;
@@ -88,23 +122,26 @@ export const firebaseLoginbuttonStyles = css`
     margin-left: 5px;
   }
   .button-photo {
-    width: var(--firebase-loginbutton_btn-photo-size, 10rem);
+    width: var(--_firebase-loginbutton_btn-photo-size, 10rem);
   }
   .button-photo img {
     width: inherit;
     height: inherit;
     border-radius: 50%;
-    border: 1px solid var(--firebase-loginbutton_btn-primary-color, #ff7900);
+    border: 1px solid var(--_firebase-loginbutton_btn-primary-color, #ff7900);
   }
   .button-user {
     font-size: 1rem;
-    color: var(--firebase-loginbutton_btn-text-user-color, #ff7900);
+    color: var(--_firebase-loginbutton_btn-text-user-color, #ff7900);
     margin: 10px 0px 3px;
     font-weight: 500;
   }
   .button-email {
     font-size: 0.8rem;
-    color: var(--firebase-loginbutton_btn-secondary-color, rgba(0, 0, 0, 0.25));
+    color: var(
+      --_firebase-loginbutton_btn-secondary-color,
+      rgba(0, 0, 0, 0.25)
+    );
     margin-top: 0;
     margin-bottom: 1rem;
   }
@@ -131,7 +168,7 @@ export const firebaseLoginbuttonStyles = css`
     }
 
     .wrapper__login--button-mobile {
-      height: var(--firebase-loginbutton_mobile-button-height);
+      height: var(--_firebase-loginbutton_mobile-button-height);
     }
     .border-logged-in {
       border: 0;

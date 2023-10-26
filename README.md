@@ -63,15 +63,28 @@ npm i firebase-loginbutton
 
 ## Styling
 
-- **--firebase-loginbutton_btn-primary-color**. Default #ff7900
-- **--firebase-loginbutton_btn-secondary-color**. Default rgba(0, 0, 0, 0.25)
-- **--firebase-loginbutton_btn-text-color**. Default #fff
-- **--firebase-loginbutton_icon-bg-color-singin**. Default lime
-- **--firebase-loginbutton_icon-bg-color-singout**. Default #a00
-- **--firebase-loginbutton_btn-background-color**. Default #fff
-- **--firebase-loginbutton_btn-text-user-color**. Default #FF7900
-- **--firebase-loginbutton_btn-photo-size-container**. Default 12rem
-- **--firebase-loginbutton_btn-photo-size**. Default 10rem
+The following custom properties and mixins are available for styling:
+
+```css
+    --firebase-loginbutton_font-size
+    --firebase-loginbutton_margin
+    --firebase-loginbutton_padding
+    --firebase-loginbutton_btn-photo-size-container
+    --firebase-loginbutton_btn-photo-size
+    --firebase-loginbutton_btn-background-color
+    --firebase-loginbutton_btn-primary-color
+    --firebase-loginbutton_btn-terciary-color
+    --firebase-loginbutton_btn-text-color
+    --firebase-loginbutton_icon-bg-color-singin
+    --firebase-loginbutton_icon-bg-color-singout
+    --firebase-loginbutton_mobile-icon-color__logged
+    --firebase-loginbutton_mobile-icon-bg-color__logged
+    --firebase-loginbutton_mobile-icon-color__not-logged
+    --firebase-loginbutton_mobile-icon-bg-color__not-logged
+    --firebase-loginbutton_mobile-button-height
+    --firebase-loginbutton_border-logged
+    --firebase-loginbutton_border-boxshadow-logged
+```
 
 ## Linting and formatting
 
