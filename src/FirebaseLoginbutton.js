@@ -390,19 +390,11 @@ export class FirebaseLoginbutton extends LitElement {
     onAuthStateChanged(this.auth, user => {
       const computedStyle = getComputedStyle(this);
       const color = user
-        ? computedStyle.getPropertyValue(
-            '--firebase-loginbutton_mobile-icon-color__logged'
-          )
-        : computedStyle.getPropertyValue(
-            '--firebase-loginbutton_mobile-icon-color__not-logged'
-          );
+        ? computedStyle.getPropertyValue('--_firebase-loginbutton_mobile-icon-color__logged')
+        : computedStyle.getPropertyValue('--_firebase-loginbutton_mobile-icon-color__not-logged');
       const bgColor = user
-        ? computedStyle.getPropertyValue(
-            '--firebase-loginbutton_mobile-icon-bg-color__logged'
-          )
-        : computedStyle.getPropertyValue(
-            '--firebase-loginbutton_mobile-icon-bg-color__not-logged'
-          );
+        ? computedStyle.getPropertyValue('--_firebase-loginbutton_mobile-icon-bg-color__logged')
+        : computedStyle.getPropertyValue('--_firebase-loginbutton_mobile-icon-bg-color__not-logged');
       this.dataUser = user;
       this.iconLogout = /* HTML */ ` <svg
         id="logout-icon"
@@ -453,7 +445,7 @@ export class FirebaseLoginbutton extends LitElement {
     return html`
       <section class="wrapper__layer--login">
         ${this.hasParams
-          ? html`
+        ? html`
               <div id="user" class="wrapper__user"></div>
               <button
                 disabled
@@ -468,7 +460,7 @@ export class FirebaseLoginbutton extends LitElement {
                 <div class="button-text"></div>
               </button>
             `
-          : html` <p>Faltan parámetros en la definición del componente</p> `}
+        : html` <p>Faltan parámetros en la definición del componente</p> `}
       </section>
     `;
   }
