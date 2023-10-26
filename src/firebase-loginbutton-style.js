@@ -58,12 +58,14 @@ export const firebaseLoginbuttonStyles = css`
         rgba(0, 0, 0, 0.25)
     );
   }
+
   svg {
     border: 0;
     border-radius: 50%;
     padding: 5px;
     padding-bottom: 6px;
   }
+
   .signin {
     background: var(--_firebase-loginbutton_icon-bg-color-singin, lime);
   }
