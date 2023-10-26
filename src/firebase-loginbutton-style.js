@@ -2,7 +2,6 @@ import { css } from 'lit';
 
 export const firebaseLoginbuttonStyles = css`
   :host {
-    display: block;
     --_firebase-loginbutton_font-size: var(--firebase-loginbutton_font-size, 1.2rem);
     --_firebase-loginbutton_margin: var(--firebase-loginbutton_margin, 0);
     --_firebase-loginbutton_padding: var(--firebase-loginbutton_padding, 0.5rem);
@@ -21,6 +20,10 @@ export const firebaseLoginbuttonStyles = css`
     --_firebase-loginbutton_mobile-button-height: var(--firebase-loginbutton_mobile-button-height, 2.5rem);
     --_firebase-loginbutton_border-logged: var(--firebase-loginbutton_border-logged, 2px outset var(--firebase-loginbutton_btn-terciary-color, rgba(0, 0, 0, 0.25)));
     --_firebase-loginbutton_border-boxshadow-logged: var(--firebase-loginbutton_border-boxshadow-logged, 0px 4px 4px 0px rgba(0, 0, 0, 0.25));
+
+    display: block;
+    margin: 0;
+    padding: 0;
   }
 
   svg {
