@@ -5,6 +5,7 @@ export const firebaseLoginbuttonStyles = css`
     --_firebase-loginbutton_font-size: var(--firebase-loginbutton_font-size, 1.2rem);
     --_firebase-loginbutton_margin: var(--firebase-loginbutton_margin, 0);
     --_firebase-loginbutton_padding: var(--firebase-loginbutton_padding, 0.5rem);
+    --_firebase-loginbutton_padding-container: var(--firebase-loginbutton_padding, 0.6rem 0);
     --_firebase-loginbutton_btn-photo-size-container: var(--firebase-loginbutton_btn-photo-size-container, 12rem);
     --_firebase-loginbutton_btn-photo-size: var(--firebase-loginbutton_btn-photo-size, 10rem);
     --_firebase-loginbutton_btn-background-color: var(--firebase-loginbutton_btn-background-color, #fff);
@@ -13,6 +14,8 @@ export const firebaseLoginbuttonStyles = css`
     --_firebase-loginbutton_btn-text-color: var(--firebase-loginbutton_btn-text-color, #fff);
     --_firebase-loginbutton_icon-bg-color-singin: var(--firebase-loginbutton_icon-bg-color-singin, lime);
     --_firebase-loginbutton_icon-bg-color-singout: var(--firebase-loginbutton_icon-bg-color-singout, #a00);
+    --_firebase-loginbutton_icon-size: var(--firebase-loginbutton-icon-size, 48px);
+    --_firebase-loginbutton_mobile-icon-size: var(--firebase-loginbutton_mobile-icon-size, --_firebase-loginbutton-icon-size, 32px);
     --_firebase-loginbutton_mobile-icon-color__logged: var(--firebase-loginbutton_mobile-icon-color__logged, #00ff00);
     --_firebase-loginbutton_mobile-icon-bg-color__logged: var(--firebase-loginbutton_mobile-icon-bg-color__logged, #0000ff);
     --_firebase-loginbutton_mobile-icon-color__not-logged: var(--firebase-loginbutton_mobile-icon-color__not-logged, #ff7700);
@@ -79,7 +82,7 @@ export const firebaseLoginbuttonStyles = css`
   .button-text {
     background-color: var(--_firebase-loginbutton_btn-primary-color);
     color: var(--_firebase-loginbutton_btn-text-color);
-    padding: 0.6rem 0rem;
+    padding: var(--_firebase-loginbutton_padding-container);
     border-radius: 100px;
     display: inline-block;
     text-align: center;

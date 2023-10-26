@@ -104,6 +104,14 @@ export class FirebaseLoginbutton extends LitElement {
         type: String,
         attribute: false,
       },
+      iconPathSignIn: {
+        type: String,
+        attribute: 'icon-path-signin',
+      },
+      iconPathSignOut: {
+        type: String,
+        attribute: 'icon-path-signout',
+      },
       firebaseApp: {
         type: Object,
       },
@@ -139,6 +147,9 @@ export class FirebaseLoginbutton extends LitElement {
 
     this.signedIn = false;
     this.signedOut = false;
+
+    this.iconPathSignIn = null;
+    this.iconPathSignOut = null;
 
     this.isMobile =
       navigator.userAgent.match(
@@ -395,19 +406,27 @@ export class FirebaseLoginbutton extends LitElement {
       const bgColor = user
         ? computedStyle.getPropertyValue('--_firebase-loginbutton_mobile-icon-bg-color__logged')
         : computedStyle.getPropertyValue('--_firebase-loginbutton_mobile-icon-bg-color__not-logged');
+      const logoSize = computedStyle.getPropertyValue('--_firebase-loginbutton_icon-size');
+      const iconPathSignIn = (this.iconPathSignIn !== null)
+        ? this.iconPathSignIn
+        : "<path d='M14 19.2857L15.8 21L20 17M4 21C4 17.134 7.13401 14 11 14C12.4872 14 13.8662 14.4638 15 15.2547M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/>";
+      const iconPathSignOut = (this.iconPathSignOut !== null)
+        ? this.iconPathSignOut
+        : "<path d='M11 14C7.13401 14 4 17.134 4 21H11M14.8086 19.7053L19.127 16.3467M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7ZM20 18C20 19.6569 18.6569 21 17 21C15.3431 21 14 19.6569 14 18C14 16.3431 15.3431 15 17 15C18.6569 15 20 16.3431 20 18Z' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/>";
+
+      const svgPath = (user) ? iconPathSignIn : iconPathSignOut;
+
       this.dataUser = user;
       this.iconLogout = /* HTML */ ` <svg
         id="logout-icon"
-        width="24"
-        height="24"
+        width="${logoSize}" height="${logoSize}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
         class="signout"
         fill="${color}"
         style="background-color:${bgColor}"
       >
-        <path
-          d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"
-        />
+      ${svgPath}
       </svg>`;
+
       this._getUserInfo(user);
       this.shadowRoot.querySelector('#quickstart-sign-in').disabled = false;
       if (user) {
