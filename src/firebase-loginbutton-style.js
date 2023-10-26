@@ -1,8 +1,7 @@
 import { css } from 'lit';
 
 export const firebaseLoginbuttonStyles = css`
-  :host,
-  :root {
+  :host {
     display: block;
     --_firebase-loginbutton_font-size: var(
       --firebase-loginbutton_font-size: 1.2rem
