@@ -301,23 +301,23 @@ export class FirebaseLoginbutton extends LitElement {
     const sR = this.shadowRoot;
     const env = this.domain.match(/^dev-/) ? '(DEV)' : '';
     if (!this.isMobile) {
-      sR.querySelector('.button-photo').innerHTML = this.showPhoto
-        ? `<img src="${this.photo}" alt="${this.displayName} photo"/>`
-        : '';
+      if (this.showPhoto) {
+        sR.querySelector('.button-photo').innerHTML = `<img src="${this.photo}" alt="${this.displayName} photo"/>`;
+      }
       if (!this.showIcon) {
         sR.querySelector('.button-text').innerText = `Sign out${env}`;
       } else {
         sR.querySelector('.button-text').classList.add('hide');
       }
-      sR.querySelector('.button-icon').innerHTML = this.showIcon
-        ? `${this.iconLogout}`
-        : '';
-      sR.querySelector('.button-user').textContent = this.showUser
-        ? `${this.displayName}`
-        : '';
-      sR.querySelector('.button-email').textContent = this.showEmail
-        ? `${this.email}`
-        : '';
+      if (this.showIcon) {
+        sR.querySelector('.button-icon').innerHTML = this.iconLogout;
+      }
+      if (this.showUser) {
+        sR.querySelector('.button-user').textContent = this.displayName;
+      }
+      if (this.showEmail) {
+        sR.querySelector('.button-email').textContent = this.email;
+      }
       if (this.hideIfLogin) {
         sR.querySelector('.wrapper__layer--login').classList.add('hide');
       }
